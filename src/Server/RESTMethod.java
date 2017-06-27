@@ -28,7 +28,7 @@ public class RESTMethod {
     // return all the names of the games that are playing in this moment
     public synchronized String[] getGamesNames() {
         // if there are games
-        if (gamesList != null) {
+        if (!gamesList.isEmpty()) {
             String[] InGamesArray = new String[gamesList.size()];
             // get the name of game for each games
             for (int i = 0; i < gamesList.size(); i++) {
@@ -44,7 +44,7 @@ public class RESTMethod {
     // get details on a specific match
     public synchronized Game getGameDetails(String nameGame) {
         // if there are games
-        if (gamesList != null) {
+        if (!gamesList.isEmpty()) {
             // get the name of game for each games
             for (int i = 0; i < gamesList.size(); i++) {
                 // if game name exist return it

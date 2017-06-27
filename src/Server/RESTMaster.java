@@ -15,14 +15,8 @@ public class RESTMaster {
     @GET
     // without path check if server is on
     public Response ImAlive() {
-        return Response.ok("Server is on!").build();
-    }
 
-    @GET
-    @Path("temp")
-    @Produces({"application/json"})
-    public Response jesus(){
-        return Response.ok(json.toJson(RESTMethod.getInstance().CreateNewGame("banana",5,5,"",1,"pippo"))).build();
+        return Response.ok("Server is on!").build();
     }
 
     @GET
@@ -60,7 +54,7 @@ public class RESTMaster {
     @GET
     @Produces("application/json")
     // get details of a match
-    public Response GetDetailsOfGame(@DefaultValue("")@PathParam("gameName") String gameName){
+    public Response GetDetailsOfGame(@PathParam("gameName") String gameName){
 
         Game game = RESTMethod.getInstance().getGameDetails(gameName);
         if (game != null) {
