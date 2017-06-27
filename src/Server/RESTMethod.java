@@ -15,18 +15,20 @@ public class RESTMethod {
     private SecureRandom random = new SecureRandom();
 
     public RESTMethod() {
+
         gamesList = new ArrayList<Game>();
     }
 
     //singleton
-    public synchronized static RESTMethod getInstance(){
-        if(instance==null)
+    public synchronized static RESTMethod GetInstance(){
+        if (instance == null) {
             instance = new RESTMethod();
+        }
         return instance;
     }
 
     // return all the names of the games that are playing in this moment
-    public synchronized String[] getGamesNames() {
+    public synchronized String[] GetGamesNames() {
         // if there are games
         if (!gamesList.isEmpty()) {
             String[] InGamesArray = new String[gamesList.size()];
@@ -42,7 +44,7 @@ public class RESTMethod {
     }
 
     // get details on a specific match
-    public synchronized Game getGameDetails(String nameGame) {
+    public synchronized Game GetGameDetails(String nameGame) {
         // if there are games
         if (!gamesList.isEmpty()) {
             // get the name of game for each games
@@ -68,35 +70,39 @@ public class RESTMethod {
             }
         }
         // else
-        Game newGame = new Game(name, sizeSide, playerName, maxScore, IPAddress, portAddress);
+        String token = new BigInteger(130, random).toString(32);
+        Game newGame = new Game(name, token, sizeSide, playerName, maxScore, IPAddress, portAddress);
         // add game to list of games
         gamesList.add(newGame);
         // generate random token for game
-        return new BigInteger(130, random).toString(32);
+        return token;
     }
 
     // add player to playing match
-    public synchronized boolean AddPlayerInGame(String playerName, String gameName, String IPAddress, Integer portAddress) {
+    public synchronized String AddPlayerInGame(String playerName, String gameName, String IPAddress, Integer portAddress) {
         // get the name of game for each games
         for (int i = 0; i < gamesList.size(); i++) {
             // if game name exist
             if (gameName.equals(gamesList.get(i).getName())) {
                 // if user have the same name
                 if (gamesList.get(i).getInGamePlayers().contains(playerName)) {
-                    return false;
+                    return null;
                 }
                 else {
-                    // add player to game
-                    gamesList.get(i).AddPlayerToGame(playerName, IPAddress, portAddress);
-                    return true;
+                    // if there is a cell free to place player
+                    if (gamesList.get(i).getInGamePlayers().size() < (gamesList.get(i).getSizeSide() * gamesList.get(i).getSizeSide())) {
+                        // add player to game
+                        gamesList.get(i).AddPlayerToGame(playerName, IPAddress, portAddress);
+                        return gamesList.get(i).getToken();
+                    }
                 }
             }
         }
-        return false;
+        return null;
     }
 
     // remove a player from a game
-    public synchronized void RemovePlayerInGame(String playerName, String gameName, String IPAddress, Integer portAddress) {
+    public synchronized boolean RemovePlayerInGame(String playerName, String gameName, String IPAddress, Integer portAddress) {
         // get the name of game for each games
         for (int i = 0; i < gamesList.size(); i++) {
             // if game name exist
@@ -105,20 +111,21 @@ public class RESTMethod {
                 if (gamesList.get(i).getInGamePlayers().contains(playerName)) {
                     if (gamesList.get(i).getInGamePlayers().size() == 1) {
                         // if there is just one player delete the match
-                        DeleateGame(gameName);
-                        break;
+                        DeleteGame(gameName);
+                        return true;
                     }
                     else {
                         // remove player to game
                         gamesList.get(i).RemovePlayerToGame(playerName, IPAddress, portAddress);
-                        break;
+                        return true;
                     }
                 }
             }
         }
+        return false;
     }
 
-    public synchronized void DeleateGame(String gameName) {
+    public synchronized void DeleteGame(String gameName) {
         // get the name of game for each games
         for (int i = 0; i < gamesList.size(); i++) {
             // if game name exist

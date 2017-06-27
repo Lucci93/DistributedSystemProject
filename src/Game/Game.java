@@ -7,6 +7,8 @@ public class Game {
 
     // name of the game
     private String name;
+    // token identifier
+    private String token;
     // size of a side of the map
     private Integer sizeSide;
     // list of player in game
@@ -18,8 +20,9 @@ public class Game {
     // list of player in game port
     private List<Integer> inGamePlayersPort;
 
-    public Game(String name, Integer sizeSide, String playerName, Integer maxScore, String IPAddress, Integer portAddress) {
+    public Game(String name, String token, Integer sizeSide, String playerName, Integer maxScore, String IPAddress, Integer portAddress) {
         this.name = name;
+        this.token = token;
         this.sizeSide = sizeSide;
         this.maxScore = maxScore;
         this.inGamePlayers = new ArrayList<>();
@@ -53,6 +56,14 @@ public class Game {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public Integer getSizeSide() {

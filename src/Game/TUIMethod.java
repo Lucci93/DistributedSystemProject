@@ -16,11 +16,18 @@ public class TUIMethod {
     private URL serverURL;
     private HttpURLConnection serverConnection = null;
     private Gson json = new Gson();
+    private String serverIPAddress;
+    private String serverPort;
+
+    public TUIMethod(String serverIPAddress, String serverPort) {
+        this.serverIPAddress = serverIPAddress;
+        this.serverPort = serverPort;
+    }
 
     public String StartConnection() {
         try {
             //Create connection
-            serverURL = new URL("http://localhost:8080/Server/REST");
+            serverURL = new URL("http://" + serverIPAddress + ":" + serverPort + "/Server/REST");
             serverConnection = (HttpURLConnection) serverURL.openConnection();
             serverConnection.setRequestMethod("GET");
             // try to recover the response code from the server to know if is on
@@ -104,7 +111,7 @@ public class TUIMethod {
         }
     }
 
-    // Writes on terminal the details of a match
+    // Create a new match
     public String CreateANewGame(String playerName, String matchName, String sideSize, String maxScore, String IPAddress, String portAddress) {
         try {
             Map<String,Object> params = new LinkedHashMap<>();
@@ -154,8 +161,8 @@ public class TUIMethod {
         }
     }
 
-    // Writes on terminal the details of a match
-    public String AddPlayerToGame(String playerName, String matchName, String IPAddress, String portAddress) {
+    // Add player to a created match
+    public String AddPlayerInGame(String playerName, String matchName, String IPAddress, String portAddress) {
         try {
             // server post
             URL url = new URL(serverURL + "/addPlayer/" + matchName + "/" + playerName + "/" + IPAddress + "/" + portAddress);
@@ -173,11 +180,40 @@ public class TUIMethod {
                 }
                 in.close();
                 // receive the token if the request is end well
-                return "ok";
+                return json.fromJson(result.toString(), String.class);
             }
-            // error in the creation of the match
+            // error in the adding of the player
             else {
-                return "fail";
+                return "empty";
+            }
+        }
+        catch (Exception e) {
+            return "error";
+        }
+    }
+
+    // Remove a player from a created match
+    public String RemovePlayerFromMatch(String playerName, String matchName, String IPAddress, String portAddress) {
+        try {
+            // server request
+            URL url = new URL(serverURL + "/removePlayer/" + matchName + "/" + playerName + "/" + IPAddress + "/" + portAddress);
+            serverConnection = (HttpURLConnection) url.openConnection();
+            serverConnection.setRequestMethod("DELETE");
+            // find matches
+            if (serverConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                // recovery json
+                BufferedReader in = new BufferedReader(new InputStreamReader(serverConnection.getInputStream()));
+                String inputLine;
+                StringBuffer result = new StringBuffer();
+                while ((inputLine = in.readLine()) != null) {
+                    result.append(inputLine);
+                }
+                in.close();
+                return json.fromJson(result.toString(), String.class);
+            }
+            // no match found
+            else {
+                return "empty";
             }
         }
         catch (Exception e) {

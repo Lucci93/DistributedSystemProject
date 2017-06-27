@@ -3,7 +3,11 @@ package Game;
 // method to manage TUI
 public class TUIManager {
 
-    TUIMethod tuiMethod = new TUIMethod();
+    private TUIMethod tuiMethod;
+
+    public TUIManager(String serverIPAddress, String serverPort) {
+        this.tuiMethod = new TUIMethod(serverIPAddress, serverPort);
+    }
 
     // display the start menu interface if connection with server return a success
     public void GameMenu() {
@@ -45,7 +49,7 @@ public class TUIManager {
         }
     }
 
-    // print list of current matches if there are on terminal
+    // print the detail of a particular match
     public void DetailsOfMatch(String matchName) {
         String response = tuiMethod.GetDetailsOfMatch(matchName);
         if (response == "error") {
@@ -64,7 +68,7 @@ public class TUIManager {
         }
     }
 
-    // print list of current matches if there are on terminal
+    // create a game
     public String CreateGame(String playerName, String matchName, String sideSize, String maxScore, String IPAddress, String portAddress) {
         String response = tuiMethod.CreateANewGame(playerName, matchName, sideSize, maxScore, IPAddress, portAddress);
         if (response == "error") {
@@ -83,22 +87,38 @@ public class TUIManager {
         return null;
     }
 
-    // print list of current matches if there are on terminal
+    // add player in a created game
     public String AddPlayer(String playerName, String matchName, String IPAddress, String portAddress) {
-        String response = tuiMethod.AddPlayerToGame(playerName, matchName, IPAddress, portAddress);
+        String response = tuiMethod.AddPlayerInGame(playerName, matchName, IPAddress, portAddress);
         if (response == "error") {
-            System.out.println("Connection with server failed while it was adding player to match...");
+            System.out.println("Connection with server failed while it was adding player in match...");
             System.exit(0);
         }
         else if (response == "fail") {
-            System.out.println("Wrong parameters sent or player name already in use, retry!");
+            System.out.println("Wrong parameters sent, player name already in use or max number of players reached, retry!");
         }
         else {
             // print the list of matches
             System.out.println("START MATCH");
             System.out.println("-------------------\n");
-            return "ok";
+            return response;
         }
         return null;
+    }
+
+    // remove a player from a created game
+    public void RemovePlayer(String playerName, String matchName, String IPAddress, String portAddress) {
+        String response = tuiMethod.RemovePlayerFromMatch(playerName, matchName, IPAddress, portAddress);
+        if (response == "error") {
+            System.out.println("Connection with server failed while it was removing player from match...");
+            System.exit(0);
+        }
+        else if (response == "fail") {
+            System.out.println("Wrong parameters sent, retry!");
+        }
+        else {
+            // exit from java application
+            System.exit(0);
+        }
     }
 }

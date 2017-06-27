@@ -10,16 +10,38 @@ public class TUI {
     // run terminal
     public static void main(String[] args) {
 
-        TUIManager manager = new TUIManager();
         Scanner scanner = new Scanner(System.in);
         boolean exitChoice = false;
         Integer portAddress = null;
         String IPAddress = null;
         // token for the token ring implementation
-        String token = null;
+        String token;
+        String player = "";
+        String serverIPAddress = "";
+        String serverPort = "";
 
-        // get a server socket connection
+        // set server address
+        System.out.println("Enter the IP of the server:");
+        while (serverIPAddress.length() < 1) {
+            serverIPAddress = scanner.nextLine();
+        }
+        // set server port
+        System.out.println("Enter the port address:");
+        while (serverPort.length() < 1) {
+            serverPort = scanner.nextLine();
+        }
+        // set player name
+        System.out.println("Enter your in-game name:");
+        while (player.length() < 1) {
+            player = scanner.nextLine();
+        }
+
+        // create the TUI manager
+        TUIManager manager = new TUIManager(serverIPAddress, serverPort);
+
+        // get a new socket
         try {
+            // get random port
             ServerSocket socket = new ServerSocket(0);
             portAddress = socket.getLocalPort();
             // get IPAddress
@@ -42,18 +64,13 @@ public class TUI {
             switch (command.toUpperCase()) {
                 // join in a match
                 case "J":
-                    System.out.println("Enter your name:");
-                    String player = "";
-                    while (player.length() < 1) {
-                        player = scanner.nextLine();
-                    }
                     System.out.println("Enter match name:");
                     String game = "";
                     while (game.length() < 1) {
                         game = scanner.nextLine();
                     }
-                    String response = manager.AddPlayer(player, game, IPAddress, portAddress.toString());
-                    if (response == "ok") {
+                    token = manager.AddPlayer(player, game, IPAddress, portAddress.toString());
+                    if (token != null) {
                         ClearTUI();
                         exitChoice = true;
                         // TODO: game TUI
@@ -67,11 +84,6 @@ public class TUI {
                     break;
                 // new match
                 case "N":
-                    System.out.println("Enter your name:");
-                    String namePlayer = "";
-                    while (namePlayer.length() < 1) {
-                        namePlayer = scanner.nextLine();
-                    }
                     System.out.println("Enter match name:");
                     String nameGame = "";
                     while (nameGame.length() < 1) {
@@ -87,7 +99,7 @@ public class TUI {
                     while (maxScore.length() < 1) {
                         maxScore = scanner.nextLine();
                     }
-                    token = manager.CreateGame(namePlayer, nameGame, side, maxScore, IPAddress, portAddress.toString());
+                    token = manager.CreateGame(player, nameGame, side, maxScore, IPAddress, portAddress.toString());
                     if (token != null) {
                         ClearTUI();
                         exitChoice = true;

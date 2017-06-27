@@ -25,7 +25,7 @@ public class RESTMaster {
     // get list of all match playing in this moment
     public Response GetGamesNames() {
 
-        String[] arrayOfGamesName = RESTMethod.getInstance().getGamesNames();
+        String[] arrayOfGamesName = RESTMethod.GetInstance().GetGamesNames();
         if (arrayOfGamesName != null) {
             return Response.ok(json.toJson(arrayOfGamesName)).build();
         } else {
@@ -40,7 +40,7 @@ public class RESTMaster {
     // create a new game
     public Response CreateNewGame(@FormParam("gameName") String gameName, @FormParam("sizeSide") Integer sizeSide, @FormParam("maxScore") Integer maxScore, @FormParam("IPAddress") String IPAddress, @FormParam("portAddress") Integer portAddress, @FormParam("playerName") String playerName){
 
-        String token = RESTMethod.getInstance().CreateNewGame(gameName, sizeSide, maxScore, IPAddress, portAddress, playerName);
+        String token = RESTMethod.GetInstance().CreateNewGame(gameName, sizeSide, maxScore, IPAddress, portAddress, playerName);
         if (token != null) {
             // return the token to the player after a game is created
             return Response.ok(json.toJson(token)).build();
@@ -56,7 +56,7 @@ public class RESTMaster {
     // get details of a match
     public Response GetDetailsOfGame(@PathParam("gameName") String gameName){
 
-        Game game = RESTMethod.getInstance().getGameDetails(gameName);
+        Game game = RESTMethod.GetInstance().GetGameDetails(gameName);
         if (game != null) {
             return Response.ok(json.toJson(game)).build();
         }
@@ -71,18 +71,13 @@ public class RESTMaster {
     // delete a player
     public Response RemovePlayer(@PathParam("gameName") String gameName, @PathParam("playerName") String playerName,  @PathParam("IpAddress") String IPAddress,  @PathParam("portAddress") Integer portAddress) {
 
-        RESTMethod.getInstance().RemovePlayerInGame(playerName, gameName, IPAddress, portAddress);
-        return Response.ok(json.toJson("ok")).build();
-    }
-
-    @Path("removeGame/{gameName}")
-    @DELETE
-    @Produces("application/json")
-    // delete a game
-    public Response RemoveGame(@PathParam("gameName") String gameName){
-
-        RESTMethod.getInstance().DeleateGame(gameName);
-        return Response.ok(json.toJson("ok")).build();
+        boolean response = RESTMethod.GetInstance().RemovePlayerInGame(playerName, gameName, IPAddress, portAddress);
+        if (response) {
+            return Response.ok(json.toJson("ok")).build();
+        }
+        else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
     }
 
     @Path("addPlayer/{gameName}/{playerName}/{IpAddress}/{portAddress}")
@@ -91,9 +86,9 @@ public class RESTMaster {
     // add player to game
     public Response AddPlayer(@PathParam("gameName") String gameName, @PathParam("playerName") String playerName,  @PathParam("IpAddress") String IPAddress,  @PathParam("portAddress") Integer portAddress) {
 
-        boolean response = RESTMethod.getInstance().AddPlayerInGame(playerName, gameName, IPAddress, portAddress);
-        if (response) {
-            return Response.ok(json.toJson("ok")).build();
+        String response = RESTMethod.GetInstance().AddPlayerInGame(playerName, gameName, IPAddress, portAddress);
+        if (response != null) {
+            return Response.ok(json.toJson(response)).build();
         }
         else {
             return Response.status(Response.Status.BAD_REQUEST).build();
