@@ -1,15 +1,9 @@
 package Client;
 
-
 public class Peer {
 
-    private static Peer instance;
+    public Peer() {
 
-    //singleton
-    public synchronized static Peer GetInstance(){
-        if (instance == null) {
-            instance = new Peer();
-        }
-        return instance;
     }
+
 }

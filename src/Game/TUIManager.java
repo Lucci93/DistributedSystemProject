@@ -1,12 +1,18 @@
 package Game;
 
+import com.google.gson.Gson;
+
+import java.util.List;
+
 // method to manage TUI
 public class TUIManager {
 
     private TUIMethod tuiMethod;
+    private Gson json;
 
     public TUIManager(String serverIPAddress, String serverPort) {
         this.tuiMethod = new TUIMethod(serverIPAddress, serverPort);
+        this.json = new Gson();
     }
 
     // display the start menu interface if connection with server return a success
@@ -45,6 +51,12 @@ public class TUIManager {
             // print the list of matches
             System.out.println("LIST OF CURRENT MATCHES");
             System.out.println("-------------------\n");
+            List<String> listOfMatches = json.fromJson(response, List.class);
+            response = "";
+            // print on terminal the list of matches
+            for (String name: listOfMatches) {
+                response += "- " + name + "\n";
+            }
             System.out.println(response);
         }
     }
@@ -64,12 +76,19 @@ public class TUIManager {
             // print the list of matches
             System.out.println("DETAILS");
             System.out.println("-------------------\n");
+            Game game = json.fromJson(response, Game.class);
+            // format game details
+            response = "Game name: " + game.getName() + ",\nMap side size: " + game.getSizeSide() + ",\nIn-game players: \n";
+            for (int i = 0; i < game.getInGamePlayers().size(); i ++) {
+                response += "  - " + game.getInGamePlayers().get(i) + "\n";
+            }
+            response += "Max score: " + game.getMaxScore() + ".";
             System.out.println(response);
         }
     }
 
     // create a game
-    public String CreateGame(String playerName, String matchName, String sideSize, String maxScore, String IPAddress, String portAddress) {
+    public Game CreateGame(String playerName, String matchName, String sideSize, String maxScore, String IPAddress, String portAddress) {
         String response = tuiMethod.CreateANewGame(playerName, matchName, sideSize, maxScore, IPAddress, portAddress);
         if (response == "error") {
             System.out.println("Connection with server failed while it was creating the match...");
@@ -82,13 +101,13 @@ public class TUIManager {
             // print the list of matches
             System.out.println("START MATCH");
             System.out.println("-------------------\n");
-            return response;
+            return json.fromJson(response, Game.class);
         }
         return null;
     }
 
     // add player in a created game
-    public String AddPlayer(String playerName, String matchName, String IPAddress, String portAddress) {
+    public Game AddPlayer(String playerName, String matchName, String IPAddress, String portAddress) {
         String response = tuiMethod.AddPlayerInGame(playerName, matchName, IPAddress, portAddress);
         if (response == "error") {
             System.out.println("Connection with server failed while it was adding player in match...");
@@ -101,7 +120,7 @@ public class TUIManager {
             // print the list of matches
             System.out.println("START MATCH");
             System.out.println("-------------------\n");
-            return response;
+            return json.fromJson(response, Game.class);
         }
         return null;
     }
@@ -113,7 +132,7 @@ public class TUIManager {
             System.out.println("Connection with server failed while it was removing player from match...");
             System.exit(0);
         }
-        else if (response == "fail") {
+        else if (response == "empty") {
             System.out.println("Wrong parameters sent, retry!");
         }
         else {

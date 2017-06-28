@@ -15,7 +15,7 @@ public class TUI {
         Integer portAddress = null;
         String IPAddress = null;
         // token for the token ring implementation
-        String token;
+        Game gameDetails;
         String player = "";
         String serverIPAddress = "";
         String serverPort = "";
@@ -69,8 +69,8 @@ public class TUI {
                     while (game.length() < 1) {
                         game = scanner.nextLine();
                     }
-                    token = manager.AddPlayer(player, game, IPAddress, portAddress.toString());
-                    if (token != null) {
+                    gameDetails = manager.AddPlayer(player, game, IPAddress, portAddress.toString());
+                    if (gameDetails != null) {
                         ClearTUI();
                         exitChoice = true;
                         // TODO: game TUI
@@ -99,8 +99,8 @@ public class TUI {
                     while (maxScore.length() < 1) {
                         maxScore = scanner.nextLine();
                     }
-                    token = manager.CreateGame(player, nameGame, side, maxScore, IPAddress, portAddress.toString());
-                    if (token != null) {
+                    gameDetails = manager.CreateGame(player, nameGame, side, maxScore, IPAddress, portAddress.toString());
+                    if (gameDetails != null) {
                         ClearTUI();
                         exitChoice = true;
                         // TODO: game TUI
@@ -114,6 +114,7 @@ public class TUI {
                     break;
                 // details of match
                 case "D":
+                    System.out.println("Enter match name:");
                     String name = "";
                     while (name.length() < 1) {
                         name = scanner.nextLine();

@@ -40,10 +40,10 @@ public class RESTMaster {
     // create a new game
     public Response CreateNewGame(@FormParam("gameName") String gameName, @FormParam("sizeSide") Integer sizeSide, @FormParam("maxScore") Integer maxScore, @FormParam("IPAddress") String IPAddress, @FormParam("portAddress") Integer portAddress, @FormParam("playerName") String playerName){
 
-        String token = RESTMethod.GetInstance().CreateNewGame(gameName, sizeSide, maxScore, IPAddress, portAddress, playerName);
-        if (token != null) {
+        Game game = RESTMethod.GetInstance().CreateNewGame(gameName, sizeSide, maxScore, IPAddress, portAddress, playerName);
+        if (game != null) {
             // return the token to the player after a game is created
-            return Response.ok(json.toJson(token)).build();
+            return Response.ok(json.toJson(game)).build();
         }
         else {
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -86,9 +86,9 @@ public class RESTMaster {
     // add player to game
     public Response AddPlayer(@PathParam("gameName") String gameName, @PathParam("playerName") String playerName,  @PathParam("IpAddress") String IPAddress,  @PathParam("portAddress") Integer portAddress) {
 
-        String response = RESTMethod.GetInstance().AddPlayerInGame(playerName, gameName, IPAddress, portAddress);
-        if (response != null) {
-            return Response.ok(json.toJson(response)).build();
+        Game game = RESTMethod.GetInstance().AddPlayerInGame(playerName, gameName, IPAddress, portAddress);
+        if (game != null) {
+            return Response.ok(json.toJson(game)).build();
         }
         else {
             return Response.status(Response.Status.BAD_REQUEST).build();

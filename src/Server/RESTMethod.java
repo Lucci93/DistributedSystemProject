@@ -62,7 +62,7 @@ public class RESTMethod {
     }
 
     // create a new game
-    public synchronized String CreateNewGame(String name, Integer sizeSide, Integer maxScore, String IPAddress, Integer portAddress, String playerName) {
+    public synchronized Game CreateNewGame(String name, Integer sizeSide, Integer maxScore, String IPAddress, Integer portAddress, String playerName) {
         // if game exist with same name
         for (int i = 0; i < gamesList.size(); i++) {
             if (name.equals(gamesList.get(i).getName())) {
@@ -75,11 +75,11 @@ public class RESTMethod {
         // add game to list of games
         gamesList.add(newGame);
         // generate random token for game
-        return token;
+        return newGame;
     }
 
     // add player to playing match
-    public synchronized String AddPlayerInGame(String playerName, String gameName, String IPAddress, Integer portAddress) {
+    public synchronized Game AddPlayerInGame(String playerName, String gameName, String IPAddress, Integer portAddress) {
         // get the name of game for each games
         for (int i = 0; i < gamesList.size(); i++) {
             // if game name exist
@@ -93,7 +93,7 @@ public class RESTMethod {
                     if (gamesList.get(i).getInGamePlayers().size() < (gamesList.get(i).getSizeSide() * gamesList.get(i).getSizeSide())) {
                         // add player to game
                         gamesList.get(i).AddPlayerToGame(playerName, IPAddress, portAddress);
-                        return gamesList.get(i).getToken();
+                        return gamesList.get(i);
                     }
                 }
             }
