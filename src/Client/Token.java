@@ -23,6 +23,11 @@ public class Token extends Thread {
     }
 
     public void run() {
+        StartToken();
+    }
+
+    // it will start the token when the first player will enter
+    private synchronized void StartToken() {
         try {
             if (match.getInGamePlayers().size() == 1) {
                 token = new TokenObject(match.getToken());

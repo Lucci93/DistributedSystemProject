@@ -16,6 +16,7 @@ public class ServerPeer {
 
     private static ServerPeer instance;
     private Integer portAddress;
+    private String IPAddress;
     private CurrentMatch match;
     private Integer score;
     private Pair<Integer, Integer> coord;
@@ -25,8 +26,9 @@ public class ServerPeer {
     private Gson json;
     private TUIManager manager;
 
-    private ServerPeer(Integer portAddress) {
+    private ServerPeer(Integer portAddress, String IPAddress) {
         this.portAddress = portAddress;
+        this.IPAddress = IPAddress;
         this.score = 0;
         this.match = CurrentMatch.GetInstance();
         this.manager = TUIManager.GetInstance();
@@ -40,9 +42,9 @@ public class ServerPeer {
     private ServerPeer() {}
 
     //singleton initialization
-    public synchronized static ServerPeer GetInstance(Integer portAddress){
+    public synchronized static ServerPeer GetInstance(Integer portAddress, String IPAddress){
         if (instance == null) {
-            instance = new ServerPeer(portAddress);
+            instance = new ServerPeer(portAddress, IPAddress);
         }
         return instance;
     }
@@ -102,44 +104,45 @@ public class ServerPeer {
     private synchronized void CheckStartPosition() {
         ArrayList<Socket> socketList = new ArrayList<>();
         Integer count = 0;
-        while (count != 3) {
+        while (count != match.getInGamePlayers().size() -1) {
+            count = 0;
             // send message with position to players
             for(int i = 0; i < match.getInGamePlayers().size(); i++) {
-                try {
-                    socketList.add(i, new Socket(match.getInGamePlayersIP().get(i), match.getInGamePlayersPort().get(i)));
-                    DataOutputStream out = new DataOutputStream(socketList.get(i).getOutputStream());
-                    String secondValue = json.toJson(coord);
-                    out.writeBytes(json.toJson(new Pair<>(MessageIDs.FIND_COORDINATES, secondValue)) + "\n");
-                    out.close();
-                }
-                catch (Exception exec) {
-                    System.out.println("Error of connection between players while socket try to send coordinates...");
-                    // remove player from server
-                    manager.RemovePlayer(match.playerName, match.getName(), match.GetPlayerIP(), match.GetPlayerPort());
-                    System.exit(0);
-                }
-            }
-            // receive massage of acknowledge from players
-            for(int i = 0; i < match.getInGamePlayers().size(); i++) {
-                try {
-                    BufferedReader serverRead = new BufferedReader(new InputStreamReader(socketList.get(i).getInputStream()));
-                    String ack = json.fromJson(serverRead.readLine(), String.class);
-                    socketList.get(i).close();
-                    // if the coordinate exist try another
-                    if (ack != "ok") {
-                        coord = SetCoordinates();
-                        count = 0;
-                        break;
+                // if it's not me
+                if (!portAddress.equals(match.getInGamePlayersPort().get(i))) {
+                    try {
+                        socketList.add(i, new Socket(match.getInGamePlayersIP().get(i), match.getInGamePlayersPort().get(i)));
+                        DataOutputStream out = new DataOutputStream(socketList.get(i).getOutputStream());
+                        Message m = new Message(MessageIDs.FIND_COORDINATES, json.toJson(coord));
+                        out.writeBytes(json.toJson(m) + "\n");
                     }
-                    else {
-                        count++;
+                    catch (Exception exec) {
+                        System.out.println("Error of connection between players while socket try to send coordinates...");
+                        // remove player from server
+                        manager.RemovePlayer(match.playerName, match.getName(), match.GetPlayerIP(), match.GetPlayerPort());
+                        System.exit(0);
                     }
-                }
-                catch (Exception exec) {
-                    System.out.println("Error of connection between players while socket try to recive coordinates acknowledge...");
-                    // remove player from server
-                    manager.RemovePlayer(match.playerName, match.getName(), match.GetPlayerIP(), match.GetPlayerPort());
-                    System.exit(0);
+                        try {
+                        // if it's not me
+                        BufferedReader serverRead = new BufferedReader(new InputStreamReader(socketList.get(i).getInputStream()));
+                        String ack = json.fromJson(serverRead.readLine(), String.class);
+                        socketList.get(i).close();
+                        // if the coordinate exist try another
+                        if (ack != "ok") {
+                            coord = SetCoordinates();
+                            count = 0;
+                            break;
+                        } else {
+                            count++;
+                        }
+                    }
+                    catch (Exception exec) {
+                        System.out.println("Error of connection between players while socket try to receive coordinates acknowledge...");
+                        // remove player from server
+                        manager.RemovePlayer(match.playerName, match.getName(), match.GetPlayerIP(), match.GetPlayerPort());
+                        exec.printStackTrace();
+                        System.exit(0);
+                    }
                 }
             }
         }

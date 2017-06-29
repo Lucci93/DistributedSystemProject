@@ -153,7 +153,7 @@ public class TUI {
         // START GAME
         // start peer server
         CurrentMatch currentMatch = CurrentMatch.GetInstance(player, gameDetails.getName(), gameDetails.getToken(), gameDetails.getSizeSide(), gameDetails.getInGamePlayers(), gameDetails.getMaxScore(), gameDetails.getInGamePlayersIP(), gameDetails.getInGamePlayersPort());
-        ServerPeer serverPeer = ServerPeer.GetInstance(portAddress);
+        ServerPeer serverPeer = ServerPeer.GetInstance(portAddress, IPAddress);
         serverPeer.StartServerPeer();
         while(true); // TODO: rimuovere con la schermata del gioco
     }

@@ -30,17 +30,16 @@ public class Peer extends Thread {
     public void run() {
         try {
             BufferedReader serverRead = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-            Pair<MessageIDs, String> message = json.fromJson(serverRead.readLine(), Pair.class);
+            Message message = json.fromJson(serverRead.readLine(), Message.class);
             // check the message
-            switch(message.getKey()) {
+            switch(message.getId()) {
                 // move player
                 case MOVE_PLAYER:
                     break;
                 // at start search a coordinates to place player
                 case FIND_COORDINATES:
-                    System.out.println(message);
                     // send the acknowledge
-                    SendMessage(FindCoordinates(message));
+                    SendMessage(FindCoordinates(json.fromJson(message.getJson(), Pair.class)));
                     break;
                 // bomb thrown alert
                 case THROWN_BOMB:
@@ -54,8 +53,12 @@ public class Peer extends Thread {
                 // explosion of the bomb
                 case BOMB_EXPLOSION:
                     break;
+                default:
+                    System.out.println("Error while peer thread was running...");
+                    // remove player from server
+                    manager.RemovePlayer(match.playerName, match.getName(), match.GetPlayerIP(), match.GetPlayerPort());
+                    System.exit(0);
             }
-            connectionSocket.close();
         }
         catch (Exception exec) {
             System.out.println("Error while peer thread was running...");
@@ -66,10 +69,9 @@ public class Peer extends Thread {
     }
 
     // check if coordinates of two player are the same
-    private String FindCoordinates(Pair<MessageIDs, String> message) {
-        Pair<Integer, Integer> coordinates = json.fromJson(message.getValue(), Pair.class);
+    private String FindCoordinates(Pair message) {
         // if coordinates are the same return false
-        if (coordinates.equals(serverPeer.getCoord())) {
+        if (message.equals(serverPeer.getCoord())) {
             return json.toJson("same");
         }
         else {
