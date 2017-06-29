@@ -1,6 +1,6 @@
 package Client;
 
-public class BombManager {
+public class BombManager extends Thread {
 
     private static BombManager instance;
 
@@ -10,5 +10,9 @@ public class BombManager {
             instance = new BombManager();
         }
         return instance;
+    }
+
+    public void run() {
+
     }
 }

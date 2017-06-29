@@ -1,5 +1,9 @@
 package Game;
 
+import Client.CurrentMatch;
+import Client.ServerPeer;
+import com.sun.security.ntlm.Server;
+
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.util.Scanner;
@@ -14,8 +18,7 @@ public class TUI {
         boolean exitChoice = false;
         Integer portAddress = null;
         String IPAddress = null;
-        // token for the token ring implementation
-        Game gameDetails;
+        Game gameDetails = null;
         String player = "";
         String serverIPAddress = "";
         String serverPort = "";
@@ -37,7 +40,7 @@ public class TUI {
         }
 
         // create the TUI manager
-        TUIManager manager = new TUIManager(serverIPAddress, serverPort);
+        TUIManager manager = TUIManager.GetInstance(serverIPAddress, serverPort);
 
         // get a new socket
         try {
@@ -46,12 +49,15 @@ public class TUI {
             portAddress = socket.getLocalPort();
             // get IPAddress
             IPAddress = InetAddress.getLocalHost().getHostAddress();
+            socket.close();
         }
         // if fail exit from application
         catch (Exception e) {
             System.out.println("Socket error...");
             System.exit(0);
         }
+
+        // MAIN MENU
 
         System.out.println("Running game... \n");
         // start connection with server and display the menu interface
@@ -71,9 +77,9 @@ public class TUI {
                     }
                     gameDetails = manager.AddPlayer(player, game, IPAddress, portAddress.toString());
                     if (gameDetails != null) {
+                        // start the game
                         ClearTUI();
                         exitChoice = true;
-                        // TODO: game TUI
                     }
                     else {
                         ClearTUI();
@@ -100,10 +106,10 @@ public class TUI {
                         maxScore = scanner.nextLine();
                     }
                     gameDetails = manager.CreateGame(player, nameGame, side, maxScore, IPAddress, portAddress.toString());
+                    // start the game
                     if (gameDetails != null) {
                         ClearTUI();
                         exitChoice = true;
-                        // TODO: game TUI
                     }
                     else {
                         ClearTUI();
@@ -143,6 +149,13 @@ public class TUI {
                     break;
             }
         }
+
+        // START GAME
+        // start peer server
+        CurrentMatch currentMatch = CurrentMatch.GetInstance(player, gameDetails.getName(), gameDetails.getToken(), gameDetails.getSizeSide(), gameDetails.getInGamePlayers(), gameDetails.getMaxScore(), gameDetails.getInGamePlayersIP(), gameDetails.getInGamePlayersPort());
+        ServerPeer serverPeer = ServerPeer.GetInstance(portAddress);
+        serverPeer.StartServerPeer();
+        while(true); // TODO: rimuovere con la schermata del gioco
     }
 
     // clear the TUI

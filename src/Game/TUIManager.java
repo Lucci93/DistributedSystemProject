@@ -10,10 +10,30 @@ public class TUIManager {
     private TUIMethod tuiMethod;
     private Gson json;
 
-    public TUIManager(String serverIPAddress, String serverPort) {
+    private static TUIManager instance;
+
+    //singleton initialization
+    public synchronized static TUIManager GetInstance(String serverIPAddress, String serverPort){
+        if (instance == null) {
+            instance = new TUIManager(serverIPAddress, serverPort);
+        }
+        return instance;
+    }
+
+    //general singleton
+    public synchronized static TUIManager GetInstance(){
+        if (instance == null) {
+            instance = new TUIManager();
+        }
+        return instance;
+    }
+
+    private TUIManager(String serverIPAddress, String serverPort) {
         this.tuiMethod = new TUIMethod(serverIPAddress, serverPort);
         this.json = new Gson();
     }
+
+    private TUIManager() {}
 
     // display the start menu interface if connection with server return a success
     public void GameMenu() {
@@ -134,10 +154,6 @@ public class TUIManager {
         }
         else if (response == "empty") {
             System.out.println("Wrong parameters sent, retry!");
-        }
-        else {
-            // exit from java application
-            System.exit(0);
         }
     }
 }

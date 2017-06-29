@@ -9,8 +9,6 @@ public enum MessageIDs {
     THROWN_BOMB,
     // player added to list
     ADD_PLAYER,
-    // pass the token to the next player
-    MOVE_TOKEN,
     // alert players of die of one of them
     DEATH_PLAYER,
     // explosion of the bomb

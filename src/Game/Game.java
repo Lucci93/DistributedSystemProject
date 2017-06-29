@@ -1,7 +1,6 @@
 package Game;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Game {
 
@@ -12,14 +11,15 @@ public class Game {
     // size of a side of the map
     private Integer sizeSide;
     // list of player in game
-    private List<String> inGamePlayers;
+    private ArrayList<String> inGamePlayers;
     // score to win the match
     private Integer maxScore;
     // list of player in game IP address
-    private List<String> inGamePlayersIP;
+    private ArrayList<String> inGamePlayersIP;
     // list of player in game port
-    private List<Integer> inGamePlayersPort;
+    private ArrayList<Integer> inGamePlayersPort;
 
+    // for the server
     public Game(String name, String token, Integer sizeSide, String playerName, Integer maxScore, String IPAddress, Integer portAddress) {
         this.name = name;
         this.token = token;
@@ -74,11 +74,11 @@ public class Game {
         this.sizeSide = sizeSide;
     }
 
-    public List<String> getInGamePlayers() {
+    public ArrayList<String> getInGamePlayers() {
         return inGamePlayers;
     }
 
-    public void setInGamePlayers(List<String> inGamePlayers) {
+    public void setInGamePlayers(ArrayList<String> inGamePlayers) {
         this.inGamePlayers = inGamePlayers;
     }
 
@@ -90,19 +90,19 @@ public class Game {
         this.maxScore = maxScore;
     }
 
-    public List<String> getInGamePlayersIP() {
+    public ArrayList<String> getInGamePlayersIP() {
         return inGamePlayersIP;
     }
 
-    public void setInGamePlayersIP(List<String> inGamePlayersIP) {
+    public void setInGamePlayersIP(ArrayList<String> inGamePlayersIP) {
         this.inGamePlayersIP = inGamePlayersIP;
     }
 
-    public List<Integer> getInGamePlayersPort() {
+    public ArrayList<Integer> getInGamePlayersPort() {
         return inGamePlayersPort;
     }
 
-    public void setInGamePlayersPort(List<Integer> inGamePlayersPort) {
+    public void setInGamePlayersPort(ArrayList<Integer> inGamePlayersPort) {
         this.inGamePlayersPort = inGamePlayersPort;
     }
 }
