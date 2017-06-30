@@ -1,4 +1,4 @@
-package Client;
+package Utilities;
 
 public enum MessageIDs {
     // move player
@@ -12,5 +12,7 @@ public enum MessageIDs {
     // alert players of die of one of them
     DEATH_PLAYER,
     // explosion of the bomb
-    BOMB_EXPLOSION
+    BOMB_EXPLOSION,
+    // send token
+    TOKEN
 }

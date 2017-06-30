@@ -1,4 +1,4 @@
-package Client;
+package Utilities;
 
 public class TokenObject {
 
@@ -7,5 +7,9 @@ public class TokenObject {
     public TokenObject(String id) {
 
         this.id = id;
+    }
+
+    public String getId() {
+        return id;
     }
 }

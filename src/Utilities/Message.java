@@ -1,4 +1,6 @@
-package Client;
+package Utilities;
+
+import Utilities.MessageIDs;
 
 public class Message {
 
@@ -10,11 +12,11 @@ public class Message {
         this.json = json;
     }
 
-    public MessageIDs getId() {
+    public synchronized MessageIDs getId() {
         return id;
     }
 
-    public String getJson() {
+    public synchronized String getJson() {
         return json;
     }
 }

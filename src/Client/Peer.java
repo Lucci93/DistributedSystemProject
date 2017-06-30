@@ -1,6 +1,9 @@
 package Client;
 
 import Game.TUIManager;
+import Utilities.Message;
+import Utilities.Player;
+import Utilities.TokenObject;
 import com.google.gson.Gson;
 import javafx.util.Pair;
 
@@ -18,6 +21,7 @@ public class Peer extends Thread {
     private TUIManager manager;
     private Gson json;
     private ServerPeer serverPeer;
+    private Token tokenThread;
 
     public Peer(Socket socket) {
         this.connectionSocket = socket;
@@ -25,6 +29,7 @@ public class Peer extends Thread {
         this.match = CurrentMatch.GetInstance();
         this.manager = TUIManager.GetInstance();
         this.serverPeer = ServerPeer.GetInstance();
+        this.tokenThread = Token.GetInstance();
     }
 
     public void run() {
@@ -46,6 +51,7 @@ public class Peer extends Thread {
                     break;
                 // player added to list
                 case ADD_PLAYER:
+                    SendMessage(AddPlayer(json.fromJson(message.getJson(), Player.class)));
                     break;
                 // alert players of die of one of them
                 case DEATH_PLAYER:
@@ -53,23 +59,27 @@ public class Peer extends Thread {
                 // explosion of the bomb
                 case BOMB_EXPLOSION:
                     break;
+                // token received
+                case TOKEN:
+                    SendMessage(CheckToken(json.fromJson(message.getJson(), TokenObject.class)));
+                    break;
                 default:
                     System.out.println("Error while peer thread was running...");
                     // remove player from server
-                    manager.RemovePlayer(match.playerName, match.getName(), match.GetPlayerIP(), match.GetPlayerPort());
+                    manager.RemovePlayer(match.getPlayerName(), match.getName(), match.GetPlayerIP(), match.GetPlayerPort());
                     System.exit(0);
             }
         }
         catch (Exception exec) {
             System.out.println("Error while peer thread was running...");
             // remove player from server
-            manager.RemovePlayer(match.playerName, match.getName(), match.GetPlayerIP(), match.GetPlayerPort());
+            manager.RemovePlayer(match.getPlayerName(), match.getName(), match.GetPlayerIP(), match.GetPlayerPort());
             System.exit(0);
         }
     }
 
     // check if coordinates of two player are the same
-    private String FindCoordinates(Pair message) {
+    private synchronized String FindCoordinates(Pair message) {
         // if coordinates are the same return false
         if (message.equals(serverPeer.getCoord())) {
             return json.toJson("same");
@@ -79,8 +89,26 @@ public class Peer extends Thread {
         }
     }
 
+    // add player to the list of players in the current match
+    private synchronized String AddPlayer(Player message) {
+        match.AddPlayerToGame(message.getName(), message.getIp(), message.getPort());
+        return  "ok";
+    }
+
+    private synchronized String CheckToken(TokenObject token) {
+        // if there are the same token
+        if (token.getId() == match.getToken()) {
+            // wake up token
+            tokenThread.notify();
+            return  json.toJson("ok");
+        }
+        else {
+            return json.toJson("different");
+        }
+    }
+
     // send a message via socket
-    private void SendMessage(String ack) {
+    private synchronized void SendMessage(String ack) {
         try {
             // send the acknowledge in json
             DataOutputStream out = new DataOutputStream(connectionSocket.getOutputStream());
@@ -90,7 +118,7 @@ public class Peer extends Thread {
         catch (Exception e) {
             System.out.println("Error while peer thread was sending a message...");
             // remove player from server
-            manager.RemovePlayer(match.playerName, match.getName(), match.GetPlayerIP(), match.GetPlayerPort());
+            manager.RemovePlayer(match.getPlayerName(), match.getName(), match.GetPlayerIP(), match.GetPlayerPort());
             System.exit(0);
         }
     }

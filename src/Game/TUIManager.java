@@ -1,5 +1,6 @@
 package Game;
 
+import Utilities.Game;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -108,8 +109,8 @@ public class TUIManager {
     }
 
     // create a game
-    public Game CreateGame(String playerName, String matchName, String sideSize, String maxScore, String IPAddress, String portAddress) {
-        String response = tuiMethod.CreateANewGame(playerName, matchName, sideSize, maxScore, IPAddress, portAddress);
+    public Game CreateGame(String playerName, String matchName, String sideSize, String maxScore, String IPAddress, Integer portAddress) {
+        String response = tuiMethod.CreateANewGame(playerName, matchName, sideSize, maxScore, IPAddress, portAddress.toString());
         if (response == "error") {
             System.out.println("Connection with server failed while it was creating the match...");
             System.exit(0);
@@ -127,8 +128,8 @@ public class TUIManager {
     }
 
     // add player in a created game
-    public Game AddPlayer(String playerName, String matchName, String IPAddress, String portAddress) {
-        String response = tuiMethod.AddPlayerInGame(playerName, matchName, IPAddress, portAddress);
+    public Game AddPlayer(String playerName, String matchName, String IPAddress, Integer portAddress) {
+        String response = tuiMethod.AddPlayerInGame(playerName, matchName, IPAddress, portAddress.toString());
         if (response == "error") {
             System.out.println("Connection with server failed while it was adding player in match...");
             System.exit(0);
@@ -146,8 +147,8 @@ public class TUIManager {
     }
 
     // remove a player from a created game
-    public void RemovePlayer(String playerName, String matchName, String IPAddress, String portAddress) {
-        String response = tuiMethod.RemovePlayerFromMatch(playerName, matchName, IPAddress, portAddress);
+    public void RemovePlayer(String playerName, String matchName, String IPAddress, Integer portAddress) {
+        String response = tuiMethod.RemovePlayerFromMatch(playerName, matchName, IPAddress, portAddress.toString());
         if (response == "error") {
             System.out.println("Connection with server failed while it was removing player from match...");
             System.exit(0);

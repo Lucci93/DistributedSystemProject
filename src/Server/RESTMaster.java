@@ -1,6 +1,6 @@
 package Server;
 
-import Game.Game;
+import Utilities.Game;
 import com.google.gson.Gson;
 
 import javax.ws.rs.*;

@@ -2,7 +2,8 @@ package Game;
 
 import Client.CurrentMatch;
 import Client.ServerPeer;
-import com.sun.security.ntlm.Server;
+import Utilities.Game;
+import Utilities.Player;
 
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -75,7 +76,7 @@ public class TUI {
                     while (game.length() < 1) {
                         game = scanner.nextLine();
                     }
-                    gameDetails = manager.AddPlayer(player, game, IPAddress, portAddress.toString());
+                    gameDetails = manager.AddPlayer(player, game, IPAddress, portAddress);
                     if (gameDetails != null) {
                         // start the game
                         ClearTUI();
@@ -105,7 +106,7 @@ public class TUI {
                     while (maxScore.length() < 1) {
                         maxScore = scanner.nextLine();
                     }
-                    gameDetails = manager.CreateGame(player, nameGame, side, maxScore, IPAddress, portAddress.toString());
+                    gameDetails = manager.CreateGame(player, nameGame, side, maxScore, IPAddress, portAddress);
                     // start the game
                     if (gameDetails != null) {
                         ClearTUI();
@@ -152,7 +153,8 @@ public class TUI {
 
         // START GAME
         // start peer server
-        CurrentMatch currentMatch = CurrentMatch.GetInstance(player, gameDetails.getName(), gameDetails.getToken(), gameDetails.getSizeSide(), gameDetails.getInGamePlayers(), gameDetails.getMaxScore(), gameDetails.getInGamePlayersIP(), gameDetails.getInGamePlayersPort());
+        Player.GetInstance(player, IPAddress, portAddress);
+        CurrentMatch.GetInstance(player, gameDetails.getName(), gameDetails.getToken(), gameDetails.getSizeSide(), gameDetails.getInGamePlayers(), gameDetails.getMaxScore(), gameDetails.getInGamePlayersIP(), gameDetails.getInGamePlayersPort());
         ServerPeer serverPeer = ServerPeer.GetInstance(portAddress, IPAddress);
         serverPeer.StartServerPeer();
         while(true); // TODO: rimuovere con la schermata del gioco

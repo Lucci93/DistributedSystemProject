@@ -1,6 +1,6 @@
 package Server;
 
-import Game.Game;
+import Utilities.Game;
 
 import java.util.ArrayList;
 import java.util.List;

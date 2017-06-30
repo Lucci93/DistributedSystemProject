@@ -11,7 +11,7 @@ public class CurrentMatch {
     // token identifier
     private String token;
     // player name
-    String playerName;
+    private String playerName;
     // size of a side of the map
     private Integer sizeSide;
     // list of player in game
@@ -61,13 +61,27 @@ public class CurrentMatch {
         return null;
     }
 
-    public String GetPlayerPort() {
+    public Integer GetPlayerPort() {
         for (int i = 0; i < getInGamePlayers().size(); i++) {
             if (playerName.equals(getInGamePlayers().get(i))) {
-                return getInGamePlayersPort().get(i).toString();
+                return getInGamePlayersPort().get(i);
             }
         }
         return null;
+    }
+
+    // add a player to game
+    public void AddPlayerToGame(String playerName, String IPAddress, Integer portAddress) {
+        inGamePlayers.add(playerName);
+        inGamePlayersIP.add(IPAddress);
+        inGamePlayersPort.add(portAddress);
+    }
+
+    // add a player to game
+    public void RemovePlayerToGame(String playerName, String IPAddress, Integer portAddress) {
+        inGamePlayers.remove(playerName);
+        inGamePlayersIP.remove(IPAddress);
+        inGamePlayersPort.remove(portAddress);
     }
 
     public synchronized String getName() {
