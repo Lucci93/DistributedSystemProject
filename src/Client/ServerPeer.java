@@ -15,7 +15,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ServerPeer {
+public class ServerPeer extends Thread {
 
     private static ServerPeer instance;
     private Integer portAddress;
@@ -61,7 +61,9 @@ public class ServerPeer {
         return instance;
     }
 
-
+    public void run() {
+        StartServerPeer();
+    }
 
     public synchronized void StartServerPeer() {
         try {

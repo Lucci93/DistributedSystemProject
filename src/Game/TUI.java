@@ -1,6 +1,7 @@
 package Game;
 
 import Client.CurrentMatch;
+import Client.InputManager;
 import Client.ServerPeer;
 import Utilities.Game;
 import Utilities.Player;
@@ -20,7 +21,7 @@ public class TUI {
         Integer portAddress = null;
         String IPAddress = null;
         Game gameDetails = null;
-        String player = "";
+        String playerName = "";
         String serverIPAddress = "";
         String serverPort = "";
 
@@ -36,8 +37,8 @@ public class TUI {
         }
         // set player name
         System.out.println("Enter your in-game name:");
-        while (player.length() < 1) {
-            player = scanner.nextLine();
+        while (playerName.length() < 1) {
+            playerName = scanner.nextLine();
         }
 
         // create the TUI manager
@@ -66,7 +67,7 @@ public class TUI {
         // show the list of matches
         manager.ListOfCurrentMatches();
         // wait for input
-        while(!exitChoice) {
+        while (!exitChoice) {
             String command = scanner.nextLine();
             switch (command.toUpperCase()) {
                 // join in a match
@@ -76,13 +77,12 @@ public class TUI {
                     while (game.length() < 1) {
                         game = scanner.nextLine();
                     }
-                    gameDetails = manager.AddPlayer(player, game, IPAddress, portAddress);
+                    gameDetails = manager.AddPlayer(playerName, game, IPAddress, portAddress);
                     if (gameDetails != null) {
                         // start the game
                         ClearTUI();
                         exitChoice = true;
-                    }
-                    else {
+                    } else {
                         ClearTUI();
                         // return to game menu
                         manager.GameMenu();
@@ -106,13 +106,12 @@ public class TUI {
                     while (maxScore.length() < 1) {
                         maxScore = scanner.nextLine();
                     }
-                    gameDetails = manager.CreateGame(player, nameGame, side, maxScore, IPAddress, portAddress);
+                    gameDetails = manager.CreateGame(playerName, nameGame, side, maxScore, IPAddress, portAddress);
                     // start the game
                     if (gameDetails != null) {
                         ClearTUI();
                         exitChoice = true;
-                    }
-                    else {
+                    } else {
                         ClearTUI();
                         // return to game menu
                         manager.GameMenu();
@@ -153,11 +152,51 @@ public class TUI {
 
         // START GAME
         // start peer server
-        Player.GetInstance(player, IPAddress, portAddress);
-        CurrentMatch.GetInstance(player, gameDetails.getName(), gameDetails.getToken(), gameDetails.getSizeSide(), gameDetails.getInGamePlayers(), gameDetails.getMaxScore(), gameDetails.getInGamePlayersIP(), gameDetails.getInGamePlayersPort());
+        Player.GetInstance(playerName, IPAddress, portAddress);
+        CurrentMatch match = CurrentMatch.GetInstance(playerName, gameDetails.getName(), gameDetails.getToken(), gameDetails.getSizeSide(), gameDetails.getInGamePlayers(), gameDetails.getMaxScore(), gameDetails.getInGamePlayersIP(), gameDetails.getInGamePlayersPort());
         ServerPeer serverPeer = ServerPeer.GetInstance(portAddress, IPAddress);
-        serverPeer.StartServerPeer();
-        while(true); // TODO: rimuovere con la schermata del gioco
+        serverPeer.start();
+        InputManager inputManager = InputManager.GetInstance();
+        while (true) {
+            System.out.println("You are in coordinates: " + serverPeer.getCoord().getKey() + "," + serverPeer.getCoord().getValue() + ";");
+            System.out.println("You have " + inputManager.getFifoBombList().size() + " bomb left ready to throw;");
+            System.out.println("Move with 'UP', 'DOWN', 'LEFT', 'RIGHT';");
+            System.out.println("Thrown a bomb with B;");
+            System.out.println("Press Q to exit from the game.");
+            String command = scanner.nextLine();
+            switch (command.toUpperCase()) {
+                // join in a match
+                case "UP":
+                    // TODO
+                    break;
+                // new match
+                case "DOWN":
+                    // TODO
+                    break;
+                // details of match
+                case "LEFT":
+                    // TODO
+                    break;
+                // exit from java application
+                case "RIGHT":
+                    // TODO
+                    break;
+                // exit from java application
+                case "Q":
+                    System.out.println("Exit from game...");
+                    manager.RemovePlayer(match.getPlayerName(), match.getName(), match.GetPlayerIP(), match.GetPlayerPort());
+                    System.exit(0);
+                    break;
+                // thrown bomb
+                case "B":
+                    // TODO
+                    break;
+                // retry
+                default:
+                    System.out.println("Unknown command, retry!");
+                    break;
+            }
+        }
     }
 
     // clear the TUI

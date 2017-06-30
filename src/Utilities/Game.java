@@ -36,6 +36,9 @@ public class Game {
         inGamePlayersPort.add(portAddress);
     }
 
+    // for the client error
+    public Game() {}
+
     // add a player to game
     public void AddPlayerToGame(String playerName, String IPAddress, Integer portAddress) {
         inGamePlayers.add(playerName);
