@@ -21,6 +21,7 @@ public class Token extends Thread {
     private TUIManager manager;
     private InputManager inputManager;
     private Gson json;
+    private boolean wake;
 
     //singleton
     public synchronized static Token GetInstance(){
@@ -35,23 +36,43 @@ public class Token extends Thread {
         this.match = CurrentMatch.GetInstance();
         this.manager = TUIManager.GetInstance();
         this.json = new Gson();
+        this.wake = true;
+    }
+
+    // check if process have the token or not
+    public boolean isWake() {
+        return wake;
     }
 
     public void run() {
         while (true) {
-            StartToken();
+            StopToken();
             if (inputManager.getCommand().length == 1) {
                 Step();
             }
             SendToken();
-            System.out.println("Token sent");
         }
     }
 
     // it will start the token when the first player will enter
-    private synchronized void StartToken() {
+    public synchronized void StopToken() {
         try {
+            wake = false;
             wait();
+        }
+        catch (Exception e) {
+            System.out.println("Error while token thread was locking...");
+            // remove player from server
+            manager.RemovePlayer(match.getPlayerName(), match.getName(), match.GetPlayerIP(), match.GetPlayerPort());
+            System.exit(0);
+        }
+    }
+
+    // it will start the token when the first player will enter
+    public synchronized void StartToken() {
+        try {
+            notify();
+            wake = true;
         }
         catch (Exception e) {
             System.out.println("Error while token thread was starting...");
@@ -88,11 +109,7 @@ public class Token extends Thread {
             String ack = json.fromJson(serverRead.readLine(), String.class);
             socket.close();
             // token sent, so now wait to receive it again
-            if (ack.equals("ok")) {
-                wait();
-            }
-            // if token is wrong
-            else {
+            if (!ack.equals("ok")) {
                 System.out.println("Wrong token sent...");
                 // remove player from server
                 manager.RemovePlayer(match.getPlayerName(), match.getName(), match.GetPlayerIP(), match.GetPlayerPort());

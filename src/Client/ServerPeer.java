@@ -62,6 +62,13 @@ public class ServerPeer extends Thread {
     }
 
     public void run() {
+        // start token thread
+        tokenThread.start();
+        // start input message thread
+        inputManagerThread.start();
+        // start bomb thread
+        bombManagerThread.start();
+        // start socket server
         StartServerPeer();
     }
 
@@ -76,12 +83,6 @@ public class ServerPeer extends Thread {
                 // notify that player is in game
                 SendAddingPlayerMessage();
             }
-            // start token thread
-            tokenThread.start();
-            // start input message thread
-            inputManagerThread.start();
-            // start bomb thread
-            bombManagerThread.start();
             while (true) {
                 // if some message will arrive, a thread will be launched to manage the message
                 Socket socket = serverSocket.accept();
@@ -163,7 +164,7 @@ public class ServerPeer extends Thread {
     }
 
     // sent to all the players in game that player is in game sending the token
-    private synchronized void SendAddingPlayerMessage() {
+    public synchronized void SendAddingPlayerMessage() {
         String ack = MessageGate(MessageIDs.ADD_PLAYER, json.toJson(player));
         // wrong request
         if (ack == null) {
@@ -175,7 +176,7 @@ public class ServerPeer extends Thread {
         else {
             // there is just one add with two player, so start the token
             if (match.getInGamePlayers().size() == 2) {
-                tokenThread.notify();
+                tokenThread.StartToken();
             }
         }
     }

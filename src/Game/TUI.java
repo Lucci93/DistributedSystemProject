@@ -80,7 +80,6 @@ public class TUI {
                     gameDetails = manager.AddPlayer(playerName, game, IPAddress, portAddress);
                     if (gameDetails != null) {
                         // start the game
-                        ClearTUI();
                         exitChoice = true;
                     } else {
                         ClearTUI();
@@ -109,7 +108,6 @@ public class TUI {
                     gameDetails = manager.CreateGame(playerName, nameGame, side, maxScore, IPAddress, portAddress);
                     // start the game
                     if (gameDetails != null) {
-                        ClearTUI();
                         exitChoice = true;
                     } else {
                         ClearTUI();
@@ -158,26 +156,26 @@ public class TUI {
         serverPeer.start();
         InputManager inputManager = InputManager.GetInstance();
         while (true) {
-            System.out.println("You are in coordinates: " + serverPeer.getCoord().getKey() + "," + serverPeer.getCoord().getValue() + ";");
+            System.out.println("You are in coordinates (" + serverPeer.getCoord().getKey() + "," + serverPeer.getCoord().getValue() + ");");
             System.out.println("You have " + inputManager.getFifoBombList().size() + " bomb left ready to throw;");
-            System.out.println("Move with 'UP', 'DOWN', 'LEFT', 'RIGHT';");
-            System.out.println("Thrown a bomb with B;");
-            System.out.println("Press Q to exit from the game.");
+            System.out.println("- Move with 'UP', 'DOWN', 'LEFT', 'RIGHT';");
+            System.out.println("- Thrown a bomb with B;");
+            System.out.println("- Press Q to exit from the game.");
             String command = scanner.nextLine();
             switch (command.toUpperCase()) {
-                // join in a match
+                // move up
                 case "UP":
                     // TODO
                     break;
-                // new match
+                // move down
                 case "DOWN":
                     // TODO
                     break;
-                // details of match
+                // move left
                 case "LEFT":
                     // TODO
                     break;
-                // exit from java application
+                // move right
                 case "RIGHT":
                     // TODO
                     break;

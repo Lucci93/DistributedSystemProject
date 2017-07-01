@@ -149,12 +149,12 @@ public class TUIManager {
     // remove a player from a created game
     public void RemovePlayer(String playerName, String matchName, String IPAddress, Integer portAddress) {
         String response = tuiMethod.RemovePlayerFromMatch(playerName, matchName, IPAddress, portAddress.toString());
-        if (response == "error") {
+        if (response == "error" || response == "empty") {
             System.out.println("Connection with server failed while it was removing player from match...");
             System.exit(0);
         }
-        else if (response == "empty") {
-            System.out.println("Wrong parameters sent, retry!");
+        else {
+
         }
     }
 }

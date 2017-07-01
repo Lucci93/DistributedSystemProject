@@ -85,7 +85,7 @@ public class Peer extends Thread {
             return json.toJson("same");
         }
         else {
-            return  json.toJson("ok");
+            return json.toJson("ok");
         }
     }
 
@@ -97,10 +97,10 @@ public class Peer extends Thread {
 
     private synchronized String CheckToken(TokenObject token) {
         // if there are the same token
-        if (token.getId() == match.getToken()) {
+        if (token.getId().equals(match.getToken())) {
             // wake up token
-            tokenThread.notify();
-            return  json.toJson("ok");
+            tokenThread.StartToken();
+            return json.toJson("ok");
         }
         else {
             return json.toJson("different");
