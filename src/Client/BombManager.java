@@ -1,7 +1,5 @@
 package Client;
 
-import Game.TUIManager;
-
 public class BombManager extends Thread {
 
     private static BombManager instance;
@@ -15,11 +13,11 @@ public class BombManager extends Thread {
     }
 
     private CurrentMatch match;
-    private TUIManager manager;
+    private InputManager inputManager;
 
     private BombManager() {
         this.match = CurrentMatch.GetInstance();
-        this.manager = TUIManager.GetInstance();
+        this.inputManager = InputManager.GetInstance();
     }
 
     public void run() {
@@ -35,8 +33,7 @@ public class BombManager extends Thread {
         catch (Exception e) {
             System.out.println("Error while bomb thread was starting...");
             // remove player from server
-            manager.RemovePlayer(match.getPlayerName(), match.getName(), match.GetPlayerIP(), match.GetPlayerPort());
-            System.exit(0);
+            inputManager.SendRemovePlayerMessage();
         }
     }
 }

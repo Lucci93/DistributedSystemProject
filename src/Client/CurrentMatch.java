@@ -1,6 +1,9 @@
 package Client;
 
+import javafx.util.Pair;
+
 import java.util.ArrayList;
+import java.util.Random;
 
 public class CurrentMatch {
 
@@ -14,6 +17,10 @@ public class CurrentMatch {
     private String playerName;
     // size of a side of the map
     private Integer sizeSide;
+    // current score point
+    private Integer score;
+    // current currentCoordinates
+    private Pair<Integer, Integer> coord;
     // list of player in game
     private ArrayList<String> inGamePlayers;
     // score to win the match
@@ -23,11 +30,13 @@ public class CurrentMatch {
     // list of player in game port
     private ArrayList<Integer> inGamePlayersPort;
 
-    private CurrentMatch(String playerName, String name, String token, Integer sizeSide, ArrayList<String> inGamePlayers, Integer maxScore, ArrayList<String> inGamePlayersIP, ArrayList<Integer> inGamePlayersPort) {
+    public CurrentMatch(String name, String token, String playerName, Integer sizeSide, ArrayList<String> inGamePlayers, Integer maxScore, ArrayList<String> inGamePlayersIP, ArrayList<Integer> inGamePlayersPort) {
         this.name = name;
         this.token = token;
         this.playerName = playerName;
         this.sizeSide = sizeSide;
+        this.score = 0;
+        this.coord = new Pair<>(0,0);
         this.inGamePlayers = inGamePlayers;
         this.maxScore = maxScore;
         this.inGamePlayersIP = inGamePlayersIP;
@@ -52,7 +61,7 @@ public class CurrentMatch {
         return instance;
     }
 
-    public String GetPlayerIP() {
+    public synchronized String getPlayerIP() {
         for (int i = 0; i < getInGamePlayers().size(); i++) {
             if (playerName.equals(getInGamePlayers().get(i))) {
                 return getInGamePlayersIP().get(i);
@@ -61,7 +70,7 @@ public class CurrentMatch {
         return null;
     }
 
-    public Integer GetPlayerPort() {
+    public synchronized Integer getPlayerPort() {
         for (int i = 0; i < getInGamePlayers().size(); i++) {
             if (playerName.equals(getInGamePlayers().get(i))) {
                 return getInGamePlayersPort().get(i);
@@ -71,14 +80,14 @@ public class CurrentMatch {
     }
 
     // add a player to game
-    public void AddPlayerToGame(String playerName, String IPAddress, Integer portAddress) {
+    public synchronized void AddPlayerToGame(String playerName, String IPAddress, Integer portAddress) {
         inGamePlayers.add(playerName);
         inGamePlayersIP.add(IPAddress);
         inGamePlayersPort.add(portAddress);
     }
 
     // add a player to game
-    public void RemovePlayerToGame(String playerName, String IPAddress, Integer portAddress) {
+    public synchronized void RemovePlayerToGame(String playerName, String IPAddress, Integer portAddress) {
         inGamePlayers.remove(playerName);
         inGamePlayersIP.remove(IPAddress);
         inGamePlayersPort.remove(portAddress);
@@ -104,47 +113,43 @@ public class CurrentMatch {
         return playerName;
     }
 
-    public synchronized void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
     public synchronized Integer getSizeSide() {
         return sizeSide;
-    }
-
-    public synchronized void setSizeSide(Integer sizeSide) {
-        this.sizeSide = sizeSide;
     }
 
     public synchronized ArrayList<String> getInGamePlayers() {
         return inGamePlayers;
     }
 
-    public synchronized void setInGamePlayers(ArrayList<String> inGamePlayers) {
-        this.inGamePlayers = inGamePlayers;
-    }
-
     public synchronized Integer getMaxScore() {
         return maxScore;
-    }
-
-    public synchronized void setMaxScore(Integer maxScore) {
-        this.maxScore = maxScore;
     }
 
     public synchronized ArrayList<String> getInGamePlayersIP() {
         return inGamePlayersIP;
     }
 
-    public synchronized void setInGamePlayersIP(ArrayList<String> inGamePlayersIP) {
-        this.inGamePlayersIP = inGamePlayersIP;
-    }
-
     public synchronized ArrayList<Integer> getInGamePlayersPort() {
         return inGamePlayersPort;
     }
 
-    public synchronized void setInGamePlayersPort(ArrayList<Integer> inGamePlayersPort) {
-        this.inGamePlayersPort = inGamePlayersPort;
+    public synchronized Integer getScore() {
+        return score;
     }
+
+    public synchronized void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public synchronized Pair<Integer, Integer> getCoord() {
+        return coord;
+    }
+
+    // set start coordinates
+    public synchronized void setCoord() {
+        Integer x = new Random().nextInt(sizeSide + 1);
+        Integer y = new Random().nextInt(sizeSide + 1);
+        coord = new Pair<>(x, y);
+    }
+
 }

@@ -1,22 +1,20 @@
 package Utilities;
 
-import Utilities.MessageIDs;
-
 public class Message {
 
     private MessageIDs id;
-    private String json;
+    private String message;
 
-    public Message(MessageIDs id, String json) {
+    public Message(MessageIDs id, String message) {
         this.id = id;
-        this.json = json;
+        this.message = message;
     }
 
     public synchronized MessageIDs getId() {
         return id;
     }
 
-    public synchronized String getJson() {
-        return json;
+    public synchronized String getMessage() {
+        return message;
     }
 }

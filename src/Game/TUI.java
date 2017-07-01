@@ -1,8 +1,6 @@
 package Game;
 
-import Client.CurrentMatch;
-import Client.InputManager;
-import Client.ServerPeer;
+import Client.*;
 import Utilities.Game;
 import Utilities.Player;
 
@@ -149,14 +147,22 @@ public class TUI {
         }
 
         // START GAME
-        // start peer server
         Player.GetInstance(playerName, IPAddress, portAddress);
-        CurrentMatch match = CurrentMatch.GetInstance(playerName, gameDetails.getName(), gameDetails.getToken(), gameDetails.getSizeSide(), gameDetails.getInGamePlayers(), gameDetails.getMaxScore(), gameDetails.getInGamePlayersIP(), gameDetails.getInGamePlayersPort());
-        ServerPeer serverPeer = ServerPeer.GetInstance(portAddress, IPAddress);
-        serverPeer.start();
+        CurrentMatch match = CurrentMatch.GetInstance(gameDetails.getName(), gameDetails.getToken(), playerName, gameDetails.getSizeSide(), gameDetails.getInGamePlayers(), gameDetails.getMaxScore(), gameDetails.getInGamePlayersIP(), gameDetails.getInGamePlayersPort());
+        Token tokenThread = Token.GetInstance();
         InputManager inputManager = InputManager.GetInstance();
+        BombManager bombManagerThread = BombManager.GetInstance();
+        ServerPeer serverPeer = ServerPeer.GetInstance();
+        // start input message thread
+        inputManager.start();
+        // start token thread
+        tokenThread.start();
+        // start bomb thread
+        bombManagerThread.start();
+        // start peer server
+        serverPeer.start();
         while (true) {
-            System.out.println("You are in coordinates (" + serverPeer.getCoord().getKey() + "," + serverPeer.getCoord().getValue() + ");");
+            System.out.println("You are in coordinates (" + match.getCoord().getKey() + "," + match.getCoord().getValue() + ");");
             System.out.println("You have " + inputManager.getFifoBombList().size() + " bomb left ready to throw;");
             System.out.println("- Move with 'UP', 'DOWN', 'LEFT', 'RIGHT';");
             System.out.println("- Thrown a bomb with B;");
@@ -181,9 +187,7 @@ public class TUI {
                     break;
                 // exit from java application
                 case "Q":
-                    System.out.println("Exit from game...");
-                    manager.RemovePlayer(match.getPlayerName(), match.getName(), match.GetPlayerIP(), match.GetPlayerPort());
-                    System.exit(0);
+                    inputManager.SendRemovePlayerMessage();
                     break;
                 // thrown bomb
                 case "B":
