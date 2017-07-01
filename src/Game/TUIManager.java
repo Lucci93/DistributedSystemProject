@@ -134,7 +134,7 @@ public class TUIManager {
             System.out.println("Connection with server failed while it was adding player in match...");
             System.exit(0);
         }
-        else if (response == "fail") {
+        else if (response == "empty") {
             System.out.println("Wrong parameters sent, player name already in use or max number of players reached, retry!");
         }
         else {
@@ -152,9 +152,6 @@ public class TUIManager {
         if (response == "error" || response == "empty") {
             System.out.println("Connection with server failed while it was removing player from match...");
             System.exit(0);
-        }
-        else {
-
         }
     }
 }

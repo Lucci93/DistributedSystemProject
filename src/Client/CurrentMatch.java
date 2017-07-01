@@ -152,4 +152,16 @@ public class CurrentMatch {
         coord = new Pair<>(x, y);
     }
 
+    // move player in new coord
+    public synchronized void Move(Pair<Integer, Integer> step) {
+        // check if player won't go over the grid
+        if (step.getKey() + coord.getKey() < 0 || step.getKey() + coord.getKey() > sizeSide || step.getValue() + coord.getKey() < 0 || step.getValue() + coord.getKey() > sizeSide) {
+            System.out.println("You can't go out of bounds, retry");
+        }
+        else {
+            coord = new Pair<>(coord.getKey() + step.getKey(), coord.getValue() + step.getValue());
+            // TODO
+        }
+    }
+
 }

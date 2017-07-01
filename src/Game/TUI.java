@@ -3,6 +3,7 @@ package Game;
 import Client.*;
 import Utilities.Game;
 import Utilities.Player;
+import javafx.util.Pair;
 
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -168,6 +169,7 @@ public class TUI {
         while(match.getInGamePlayers().size() < 2);
         // start input
         while (true) {
+            ClearTUI();
             System.out.println("You are in coordinates (" + match.getCoord().getKey() + "," + match.getCoord().getValue() + ");");
             System.out.println("You have " + inputManager.getFifoBombList().size() + " bomb left ready to throw;");
             System.out.println("- Move with 'UP', 'DOWN', 'LEFT', 'RIGHT';");
@@ -177,19 +179,19 @@ public class TUI {
             switch (command.toUpperCase()) {
                 // move up
                 case "UP":
-                    // TODO
+                    match.Move(new Pair<>(1, 0));
                     break;
                 // move down
                 case "DOWN":
-                    // TODO
+                    match.Move(new Pair<>(-1, 0));
                     break;
                 // move left
                 case "LEFT":
-                    // TODO
+                    match.Move(new Pair<>(0, -1));
                     break;
                 // move right
                 case "RIGHT":
-                    // TODO
+                    match.Move(new Pair<>(0, 1));
                     break;
                 // exit from java application
                 case "Q":
