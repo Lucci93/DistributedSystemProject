@@ -47,6 +47,9 @@ public class Token extends Thread {
                 if (inputManager.isDying()) {
                     inputManager.StartInputManager();
                 }
+                // wait players in timeout before exit
+                Timeout timeout = new Timeout();
+                timeout.start();
                 StopToken();
 
             }
@@ -63,8 +66,6 @@ public class Token extends Thread {
     public synchronized void StopToken() {
         try {
             wait();
-            System.out.println("Send token");
-            sleep(5000);
         }
         catch (Exception e) {
             System.out.println("Error while token thread was locking...");

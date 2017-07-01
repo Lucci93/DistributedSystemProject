@@ -152,6 +152,7 @@ public class TUI {
         Token tokenThread = Token.GetInstance();
         InputManager inputManager = InputManager.GetInstance();
         BombManager bombManagerThread = BombManager.GetInstance();
+        Timeout timeout = new Timeout();
         ServerPeer serverPeer = ServerPeer.GetInstance();
         // start input message thread
         inputManager.start();
@@ -161,6 +162,11 @@ public class TUI {
         bombManagerThread.start();
         // start peer server
         serverPeer.start();
+        // start timeout game
+        timeout.start();
+        // check players in game to start the timeout
+        while(match.getInGamePlayers().size() < 2);
+        // start input
         while (true) {
             System.out.println("You are in coordinates (" + match.getCoord().getKey() + "," + match.getCoord().getValue() + ");");
             System.out.println("You have " + inputManager.getFifoBombList().size() + " bomb left ready to throw;");
