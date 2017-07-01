@@ -180,18 +180,22 @@ public class TUI {
                 // move up
                 case "UP":
                     match.Move(new Pair<>(1, 0));
+                    // TODO
                     break;
                 // move down
                 case "DOWN":
                     match.Move(new Pair<>(-1, 0));
+                    // TODO
                     break;
                 // move left
                 case "LEFT":
                     match.Move(new Pair<>(0, -1));
+                    // TODO
                     break;
                 // move right
                 case "RIGHT":
                     match.Move(new Pair<>(0, 1));
+                    // TODO
                     break;
                 // exit from java application
                 case "Q":
@@ -199,6 +203,7 @@ public class TUI {
                     break;
                 // thrown bomb
                 case "B":
+                    Integer bomb = inputManager.getFifoBombList().pop();
                     // TODO
                     break;
                 // retry

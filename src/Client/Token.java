@@ -1,6 +1,6 @@
 package Client;
 
-import Utilities.Comunication;
+import Utilities.Communication;
 import com.google.gson.Gson;
 
 public class Token extends Thread {
@@ -8,7 +8,7 @@ public class Token extends Thread {
     private static Token instance;
     private CurrentMatch match;
     private InputManager inputManager;
-    private Comunication comunication;
+    private Communication communication;
     private Gson json;
     private boolean wake;
 
@@ -23,7 +23,7 @@ public class Token extends Thread {
     private Token() {
         this.inputManager = InputManager.GetInstance();
         this.match = CurrentMatch.GetInstance();
-        this.comunication = new Comunication();
+        this.communication = new Communication();
         this.json = new Gson();
         this.wake = true;
     }
@@ -54,7 +54,7 @@ public class Token extends Thread {
 
             }
             // send token
-            comunication.SendToken();
+            communication.SendToken();
             wake = false;
             if (inputManager.isDying()) {
                 inputManager.StartInputManager();

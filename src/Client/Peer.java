@@ -59,6 +59,9 @@ public class Peer extends Thread {
                 case TOKEN:
                     SendMessage(CheckToken(json.fromJson(message.getMessage(), TokenObject.class)));
                     break;
+                // player's win alert
+                case WIN:
+                    break;
                 default:
                     System.out.println("Error while peer thread was running...");
                     // remove player from server

@@ -4,7 +4,7 @@ import Game.TUIManager;
 import Utilities.Message;
 import Utilities.MessageIDs;
 import Utilities.Player;
-import Utilities.Comunication;
+import Utilities.Communication;
 import com.google.gson.Gson;
 
 import java.util.LinkedList;
@@ -20,7 +20,7 @@ public class InputManager extends Thread {
     private Player player;
     private TUIManager manager;
     private boolean dying;
-    private Comunication comunication;
+    private Communication communication;
     private Gson json;
 
     private InputManager() {
@@ -29,7 +29,7 @@ public class InputManager extends Thread {
         this.player = Player.GetInstance();
         this.fifoBombList = new LinkedList<>();
         this.command = new String[1];
-        this.comunication = new Comunication();
+        this.communication = new Communication();
         this.dying = false;
         this.json = new Gson();
     }
@@ -82,7 +82,7 @@ public class InputManager extends Thread {
         dying = true;
         // remove from the lists of players in game and server
         manager.RemovePlayer(match.getPlayerName(), match.getName(), match.getPlayerIP(), match.getPlayerPort());
-        String ack = comunication.MessageGate(new Message(MessageIDs.DEATH_PLAYER, json.toJson(player)));
+        String ack = communication.MessageGate(new Message(MessageIDs.DEATH_PLAYER, json.toJson(player)));
         // if token is sending to another wait
         if (tokenThread.isWake()) {
             // wait that token is sent

@@ -11,12 +11,12 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class Comunication {
+public class Communication {
 
     private CurrentMatch match;
     private Gson json;
 
-    public Comunication() {
+    public Communication() {
         this.match = CurrentMatch.GetInstance();
         this.json = new Gson();
     }

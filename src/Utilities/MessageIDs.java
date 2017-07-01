@@ -14,5 +14,7 @@ public enum MessageIDs {
     // explosion of the bomb
     BOMB_EXPLOSION,
     // send token
-    TOKEN
+    TOKEN,
+    // win
+    WIN
 }

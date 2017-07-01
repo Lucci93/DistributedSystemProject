@@ -3,7 +3,7 @@ package Client;
 import Utilities.Message;
 import Utilities.MessageIDs;
 import Utilities.Player;
-import Utilities.Comunication;
+import Utilities.Communication;
 import com.google.gson.Gson;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -15,14 +15,14 @@ public class ServerPeer extends Thread {
     private Player player;
     private Token tokenThread;
     private InputManager inputManagerThread;
-    private Comunication comunication;
+    private Communication communication;
     private Gson json;
 
     private ServerPeer() {
         this.player = Player.GetInstance();
         this.match = CurrentMatch.GetInstance();
         this.tokenThread = Token.GetInstance();
-        this.comunication = new Comunication();
+        this.communication = new Communication();
         this.match.setCoord();
         this.inputManagerThread = InputManager.GetInstance();
         this.json = new Gson();
@@ -71,7 +71,7 @@ public class ServerPeer extends Thread {
         boolean findCoord = false;
         while (!findCoord) {
             Message message = new Message(MessageIDs.FIND_COORDINATES, json.toJson(match.getCoord()));
-            String ack = comunication.MessageGate(message);
+            String ack = communication.MessageGate(message);
             if (ack == null) {
                 match.setCoord();
             }
@@ -84,7 +84,7 @@ public class ServerPeer extends Thread {
     // sent to all the players in game that player is in game
     private synchronized void SendAddingPlayerMessage() {
         Message message = new Message(MessageIDs.ADD_PLAYER, json.toJson(player));
-        String ack = comunication.MessageGate(message);
+        String ack = communication.MessageGate(message);
         // wrong request
         if (ack == null) {
             // remove player from server

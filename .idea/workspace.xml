@@ -2,18 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d2f6d5f-1a46-4d9c-8cbc-0d802287f486" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/glassfish4/glassfish/domains/domain1/config/pid" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProgettoSistemiDistribuiti/Client/CurrentMatch.class" afterPath="$PROJECT_DIR$/out/production/ProgettoSistemiDistribuiti/Client/CurrentMatch.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProgettoSistemiDistribuiti/Client/Timeout.class" afterPath="$PROJECT_DIR$/out/production/ProgettoSistemiDistribuiti/Client/Timeout.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProgettoSistemiDistribuiti/Client/Token.class" afterPath="$PROJECT_DIR$/out/production/ProgettoSistemiDistribuiti/Client/Token.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProgettoSistemiDistribuiti/Game/TUI.class" afterPath="$PROJECT_DIR$/out/production/ProgettoSistemiDistribuiti/Game/TUI.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProgettoSistemiDistribuiti/Game/TUIManager.class" afterPath="$PROJECT_DIR$/out/production/ProgettoSistemiDistribuiti/Game/TUIManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProgettoSistemiDistribuiti/Server/RESTMethod.class" afterPath="$PROJECT_DIR$/out/production/ProgettoSistemiDistribuiti/Server/RESTMethod.class" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Utilities/Comunication.java" afterPath="$PROJECT_DIR$/src/Utilities/Communication.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/glassfish4/glassfish/domains/domain1/logs/server.log" afterPath="$PROJECT_DIR$/glassfish4/glassfish/domains/domain1/logs/server.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/CurrentMatch.java" afterPath="$PROJECT_DIR$/src/Client/CurrentMatch.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/InputManager.java" afterPath="$PROJECT_DIR$/src/Client/InputManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/Peer.java" afterPath="$PROJECT_DIR$/src/Client/Peer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/ServerPeer.java" afterPath="$PROJECT_DIR$/src/Client/ServerPeer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/Token.java" afterPath="$PROJECT_DIR$/src/Client/Token.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game/TUI.java" afterPath="$PROJECT_DIR$/src/Game/TUI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game/TUIManager.java" afterPath="$PROJECT_DIR$/src/Game/TUIManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Utilities/MessageIDs.java" afterPath="$PROJECT_DIR$/src/Utilities/MessageIDs.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,7 +33,7 @@
       <file leaf-file-name="Token.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Client/Token.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
+            <state relative-caret-position="381">
               <caret line="67" column="19" lean-forward="false" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -46,15 +42,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InputManager.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="InputManager.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Client/InputManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1121">
-              <caret line="85" column="46" lean-forward="false" selection-start-line="85" selection-start-column="46" selection-end-line="85" selection-end-column="46" />
+            <state relative-caret-position="1155">
+              <caret line="77" column="0" lean-forward="true" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1031#1032#0" expanded="true" />
-                <element signature="e#1059#1060#0" expanded="true" />
+                <element signature="e#1036#1037#0" expanded="true" />
+                <element signature="e#1064#1065#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MessageIDs.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Utilities/MessageIDs.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" column="10" lean-forward="false" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Peer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Client/Peer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="413">
+              <caret line="63" column="26" lean-forward="true" selection-start-line="63" selection-start-column="26" selection-end-line="63" selection-end-column="26" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -64,7 +82,7 @@
         <entry file="file://$PROJECT_DIR$/src/Client/ServerPeer.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="571">
-              <caret line="86" column="33" lean-forward="false" selection-start-line="86" selection-start-column="33" selection-end-line="86" selection-end-column="33" />
+              <caret line="86" column="34" lean-forward="false" selection-start-line="86" selection-start-column="34" selection-end-line="86" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -75,7 +93,7 @@
       <file leaf-file-name="CurrentMatch.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Client/CurrentMatch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="503">
+            <state relative-caret-position="1934">
               <caret line="162" column="19" lean-forward="false" selection-start-line="162" selection-start-column="19" selection-end-line="162" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -91,26 +109,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="545">
               <caret line="146" column="0" lean-forward="false" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RESTMethod.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Server/RESTMethod.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="92" column="68" lean-forward="false" selection-start-line="92" selection-start-column="68" selection-end-line="92" selection-end-column="68" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RESTMaster.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Server/RESTMaster.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="89" column="0" lean-forward="false" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -144,8 +142,8 @@
       <file leaf-file-name="TUI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Game/TUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2069">
-              <caret line="195" column="45" lean-forward="true" selection-start-line="195" selection-start-column="45" selection-end-line="195" selection-end-column="45" />
+            <state relative-caret-position="383">
+              <caret line="198" column="26" lean-forward="true" selection-start-line="198" selection-start-column="26" selection-end-line="198" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -209,22 +207,22 @@
         <option value="$PROJECT_DIR$/lib/gson-2.8.0.jar!/com/google/gson/Gson.class" />
         <option value="$PROJECT_DIR$/src/Client/Message.java" />
         <option value="$PROJECT_DIR$/src/Utilities/Player.java" />
-        <option value="$PROJECT_DIR$/src/Utilities/MessageIDs.java" />
         <option value="$PROJECT_DIR$/src/Utilities/TokenObject.java" />
         <option value="$PROJECT_DIR$/src/Utilities/Game.java" />
-        <option value="$PROJECT_DIR$/src/Client/Peer.java" />
         <option value="$PROJECT_DIR$/src/Client/BombManager.java" />
         <option value="$PROJECT_DIR$/src/Utilities/Message.java" />
         <option value="$PROJECT_DIR$/src/Utilities/Utility.java" />
         <option value="$PROJECT_DIR$/src/Client/ServerPeer.java" />
         <option value="$PROJECT_DIR$/src/Client/Timeout.java" />
         <option value="$PROJECT_DIR$/src/Client/Token.java" />
-        <option value="$PROJECT_DIR$/src/Client/InputManager.java" />
         <option value="$PROJECT_DIR$/src/Client/CurrentMatch.java" />
-        <option value="$PROJECT_DIR$/src/Game/TUI.java" />
         <option value="$PROJECT_DIR$/src/Game/TUIMethod.java" />
         <option value="$PROJECT_DIR$/src/Game/TUIManager.java" />
         <option value="$PROJECT_DIR$/src/Server/RESTMethod.java" />
+        <option value="$PROJECT_DIR$/src/Utilities/MessageIDs.java" />
+        <option value="$PROJECT_DIR$/src/Client/Peer.java" />
+        <option value="$PROJECT_DIR$/src/Client/InputManager.java" />
+        <option value="$PROJECT_DIR$/src/Game/TUI.java" />
       </list>
     </option>
   </component>
@@ -966,7 +964,7 @@
       <workItem from="1498697369104" duration="1868000" />
       <workItem from="1498721284861" duration="17938000" />
       <workItem from="1498829402042" duration="12516000" />
-      <workItem from="1498902411433" duration="26167000" />
+      <workItem from="1498902411433" duration="27816000" />
     </task>
     <task id="LOCAL-00001" summary="Add MapGenerator for GUI experience">
       <created>1494180718825</created>
@@ -986,7 +984,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="151327000" />
+    <option name="totallyTimeSpent" value="152976000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -1011,7 +1009,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27040815" sideWeight="0.49761903" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27040815" sideWeight="0.49761903" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14081633" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25946277" sideWeight="0.4951857" order="0" side_tool="false" content_ui="combo" />
@@ -1229,14 +1227,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Utilities/MessageIDs.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="9" lean-forward="false" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Utilities/Player.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
@@ -1304,20 +1294,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Utilities/Comunication.java">
+    <entry file="file://$PROJECT_DIR$/src/Utilities/Communication.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="67" column="82" lean-forward="true" selection-start-line="67" selection-start-column="82" selection-end-line="67" selection-end-column="82" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Client/Peer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1338,62 +1318,10 @@
     <entry file="file://$PROJECT_DIR$/src/Client/ServerPeer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="571">
-          <caret line="86" column="33" lean-forward="false" selection-start-line="86" selection-start-column="33" selection-end-line="86" selection-end-column="33" />
+          <caret line="86" column="34" lean-forward="false" selection-start-line="86" selection-start-column="34" selection-end-line="86" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Client/CurrentMatch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="162" column="19" lean-forward="false" selection-start-line="162" selection-start-column="19" selection-end-line="162" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4140#4141#0" expanded="true" />
-            <element signature="e#4168#4169#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Client/Token.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="67" column="19" lean-forward="false" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Game/TUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2069">
-          <caret line="195" column="45" lean-forward="true" selection-start-line="195" selection-start-column="45" selection-end-line="195" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Client/InputManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1121">
-          <caret line="85" column="46" lean-forward="false" selection-start-line="85" selection-start-column="46" selection-end-line="85" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1031#1032#0" expanded="true" />
-            <element signature="e#1059#1060#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Game/TUIMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="545">
-          <caret line="146" column="0" lean-forward="false" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1420,6 +1348,76 @@
         <state relative-caret-position="398">
           <caret line="92" column="68" lean-forward="false" selection-start-line="92" selection-start-column="68" selection-end-line="92" selection-end-column="68" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/TUIMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="545">
+          <caret line="146" column="0" lean-forward="false" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Client/Token.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="67" column="19" lean-forward="false" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Utilities/MessageIDs.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="10" lean-forward="false" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Client/Peer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="63" column="26" lean-forward="true" selection-start-line="63" selection-start-column="26" selection-end-line="63" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Client/CurrentMatch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1934">
+          <caret line="162" column="19" lean-forward="false" selection-start-line="162" selection-start-column="19" selection-end-line="162" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4140#4141#0" expanded="true" />
+            <element signature="e#4168#4169#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/TUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="198" column="26" lean-forward="true" selection-start-line="198" selection-start-column="26" selection-end-line="198" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Client/InputManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1155">
+          <caret line="77" column="0" lean-forward="true" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1036#1037#0" expanded="true" />
+            <element signature="e#1064#1065#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
