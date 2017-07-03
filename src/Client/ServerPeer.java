@@ -1,9 +1,6 @@
 package Client;
 
-import Utilities.Message;
-import Utilities.MessageIDs;
-import Utilities.Player;
-import Utilities.Communication;
+import Utilities.*;
 import com.google.gson.Gson;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -14,7 +11,6 @@ public class ServerPeer extends Thread {
     private CurrentMatch match;
     private Player player;
     private Token tokenThread;
-    private InputManager inputManagerThread;
     private Communication communication;
     private Gson json;
 
@@ -24,7 +20,6 @@ public class ServerPeer extends Thread {
         this.tokenThread = Token.GetInstance();
         this.communication = new Communication();
         this.match.setCoord();
-        this.inputManagerThread = InputManager.GetInstance();
         this.json = new Gson();
     }
 
@@ -62,7 +57,7 @@ public class ServerPeer extends Thread {
         catch (Exception e) {
             System.out.println("Error while socket was in listening...");
             // remove player from server
-            inputManagerThread.SendRemovePlayerMessage();
+            tokenThread.SendRemovePlayerMessage();
         }
     }
 
@@ -89,7 +84,7 @@ public class ServerPeer extends Thread {
         if (ack == null) {
             // remove player from server
             System.out.println("Error while socket try to send a adding message to player...");
-            inputManagerThread.SendRemovePlayerMessage();
+            tokenThread.SendRemovePlayerMessage();
         }
         else {
             // there is just one add with two player, so start the token

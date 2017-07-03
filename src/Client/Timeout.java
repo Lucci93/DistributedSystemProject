@@ -1,6 +1,7 @@
 package Client;
 
 import Game.TUIManager;
+import Utilities.CurrentMatch;
 
 public class Timeout extends Thread {
 
@@ -16,7 +17,7 @@ public class Timeout extends Thread {
             // player is already alone in game
             if (match.getInGamePlayers().size() < 2) {
                 // remove from the list of players in game and server
-                System.out.println("No player was arrived, exit from game...");
+                System.out.println("No player was arrived, you won, exit from game...");
                 TUIManager.GetInstance().RemovePlayer(match.getPlayerName(), match.getName(), match.getPlayerIP(), match.getPlayerPort());
                 System.exit(0);
             }
@@ -24,7 +25,7 @@ public class Timeout extends Thread {
         catch (Exception e) {
             System.out.println("Error while timeout thread was locking...");
             // remove player from server
-            InputManager.GetInstance().SendRemovePlayerMessage();
+            Token.GetInstance().SendRemovePlayerMessage();
         }
     }
 }

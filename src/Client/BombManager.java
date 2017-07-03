@@ -1,5 +1,7 @@
 package Client;
 
+import Utilities.CurrentMatch;
+
 public class BombManager extends Thread {
 
     private static BombManager instance;
@@ -13,11 +15,11 @@ public class BombManager extends Thread {
     }
 
     private CurrentMatch match;
-    private InputManager inputManager;
+    private Token tokenThread;
 
     private BombManager() {
         this.match = CurrentMatch.GetInstance();
-        this.inputManager = InputManager.GetInstance();
+        this.tokenThread = Token.GetInstance();
     }
 
     public void run() {
@@ -33,7 +35,7 @@ public class BombManager extends Thread {
         catch (Exception e) {
             System.out.println("Error while bomb thread was starting...");
             // remove player from server
-            inputManager.SendRemovePlayerMessage();
+            tokenThread.SendRemovePlayerMessage();
         }
     }
 }

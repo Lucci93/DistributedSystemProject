@@ -1,10 +1,8 @@
 package Client;
 
-import Utilities.Message;
-import Utilities.Player;
-import Utilities.TokenObject;
+import Game.TUIManager;
+import Utilities.*;
 import com.google.gson.Gson;
-import javafx.util.Pair;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -16,15 +14,15 @@ public class Peer extends Thread {
     private Socket connectionSocket;
     private CurrentMatch match;
     private Gson json;
-    private InputManager inputManager;
     private Token tokenThread;
+    private TUIManager manager;
 
     public Peer(Socket socket) {
         this.connectionSocket = socket;
         this.json =  new Gson();
         this.match = CurrentMatch.GetInstance();
-        this.inputManager = InputManager.GetInstance();
         this.tokenThread = Token.GetInstance();
+        this.manager = TUIManager.GetInstance();
     }
 
     public void run() {
@@ -35,11 +33,12 @@ public class Peer extends Thread {
             switch(message.getId()) {
                 // move player
                 case MOVE_PLAYER:
+                    SendMessage(CheckCoordinates(json.fromJson(message.getMessage(), Coordinates.class)));
                     break;
                 // at start search a coordinates to place player
                 case FIND_COORDINATES:
                     // send the acknowledge
-                    SendMessage(FindCoordinates(json.fromJson(message.getMessage(), Pair.class)));
+                    SendMessage(FindCoordinates(json.fromJson(message.getMessage(), Coordinates.class)));
                     break;
                 // bomb thrown alert
                 case THROWN_BOMB:
@@ -61,28 +60,47 @@ public class Peer extends Thread {
                     break;
                 // player's win alert
                 case WIN:
-                    break;
+                    SendMessage("ok");
+                    manager.RemovePlayer(match.getPlayerName(), match.getName(), match.getPlayerIP(), match.getPlayerPort());
+                    System.out.println("\nYOU LOOSE!!");
+                    System.exit(0);
                 default:
-                    System.out.println("Error while peer thread was running...");
+                    System.out.println("Error while peer thread was checking message...");
                     // remove player from server
-                    inputManager.SendRemovePlayerMessage();
+                    tokenThread.SendRemovePlayerMessage();
+                    break;
             }
         }
         catch (Exception exec) {
             System.out.println("Error while peer thread was running...");
             // remove player from server
-            inputManager.SendRemovePlayerMessage();
+            tokenThread.SendRemovePlayerMessage();
         }
     }
 
     // check if coordinates of two player are the same
-    private synchronized String FindCoordinates(Pair message) {
+    private synchronized String FindCoordinates(Coordinates message) {
         // if coordinates are the same return false
         if (message.equals(match.getCoord())) {
             return json.toJson("same");
         }
         else {
             return json.toJson("ok");
+        }
+    }
+
+    // check if coordinates of two player are the same, to check if is killed
+    private synchronized String CheckCoordinates(Coordinates message) {
+        // if coordinates are the same and player is not killed yet, kill player
+        if (message.equals(match.getCoord()) && !tokenThread.isDying()) {
+            // if player was killed, wait token and exit from game
+            tokenThread.setDying(true);
+            // give a point to the enemy
+            return json.toJson(1);
+        }
+        else {
+            // player was not killed
+            return json.toJson(0);
         }
     }
 
@@ -121,8 +139,7 @@ public class Peer extends Thread {
         catch (Exception e) {
             System.out.println("Error while peer thread was sending a message...");
             // remove player from server
-            inputManager.SendRemovePlayerMessage();
+            tokenThread.SendRemovePlayerMessage();
         }
     }
-
 }

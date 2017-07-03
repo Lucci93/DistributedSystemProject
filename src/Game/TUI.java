@@ -1,9 +1,10 @@
 package Game;
 
 import Client.*;
+import Utilities.Coordinates;
+import Utilities.CurrentMatch;
 import Utilities.Game;
 import Utilities.Player;
-import javafx.util.Pair;
 
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -23,7 +24,7 @@ public class TUI {
         String playerName = "";
         String serverIPAddress = "";
         String serverPort = "";
-
+        /* TODO
         // set server address
         System.out.println("Enter the IP of the server:");
         while (serverIPAddress.length() < 1) {
@@ -34,12 +35,15 @@ public class TUI {
         while (serverPort.length() < 1) {
             serverPort = scanner.nextLine();
         }
+        */
         // set player name
         System.out.println("Enter your in-game name:");
         while (playerName.length() < 1) {
             playerName = scanner.nextLine();
         }
 
+        serverIPAddress = "localhost";
+        serverPort = "8080";
         // create the TUI manager
         TUIManager manager = TUIManager.GetInstance(serverIPAddress, serverPort);
 
@@ -151,12 +155,8 @@ public class TUI {
         Player.GetInstance(playerName, IPAddress, portAddress);
         CurrentMatch match = CurrentMatch.GetInstance(gameDetails.getName(), gameDetails.getToken(), playerName, gameDetails.getSizeSide(), gameDetails.getInGamePlayers(), gameDetails.getMaxScore(), gameDetails.getInGamePlayersIP(), gameDetails.getInGamePlayersPort());
         Token tokenThread = Token.GetInstance();
-        InputManager inputManager = InputManager.GetInstance();
         BombManager bombManagerThread = BombManager.GetInstance();
-        Timeout timeout = new Timeout();
         ServerPeer serverPeer = ServerPeer.GetInstance();
-        // start input message thread
-        inputManager.start();
         // start token thread
         tokenThread.start();
         // start bomb thread
@@ -164,52 +164,70 @@ public class TUI {
         // start peer server
         serverPeer.start();
         // start timeout game
-        timeout.start();
+        if (match.getInGamePlayers().size() < 2) {
+            Timeout timeout = new Timeout();
+            timeout.start();
+        }
         // check players in game to start the timeout
         while(match.getInGamePlayers().size() < 2);
         // start input
         while (true) {
             ClearTUI();
             System.out.println("You are in coordinates (" + match.getCoord().getKey() + "," + match.getCoord().getValue() + ");");
-            System.out.println("You have " + inputManager.getFifoBombList().size() + " bomb left ready to throw;");
-            System.out.println("- Move with 'UP', 'DOWN', 'LEFT', 'RIGHT';");
+            System.out.println("You have " + match.getFifoBombList().size() + " bomb left ready to throw;");
+            System.out.println("- Move with 'U', 'D', 'L', 'R' to move 'UP', 'DOWN', 'LEFT', 'RIGHT';");
             System.out.println("- Thrown a bomb with B;");
             System.out.println("- Press Q to exit from the game.");
             String command = scanner.nextLine();
-            switch (command.toUpperCase()) {
-                // move up
-                case "UP":
-                    match.Move(new Pair<>(1, 0));
-                    // TODO
-                    break;
-                // move down
-                case "DOWN":
-                    match.Move(new Pair<>(-1, 0));
-                    // TODO
-                    break;
-                // move left
-                case "LEFT":
-                    match.Move(new Pair<>(0, -1));
-                    // TODO
-                    break;
-                // move right
-                case "RIGHT":
-                    match.Move(new Pair<>(0, 1));
-                    // TODO
-                    break;
-                // exit from java application
-                case "Q":
-                    inputManager.SendRemovePlayerMessage();
-                    break;
-                // thrown bomb
-                case "B":
-                    Integer bomb = inputManager.getFifoBombList().pop();
-                    // TODO
-                    break;
-                // retry
-                default:
-                    System.out.println("Unknown command, retry!");
-                    break;
+            // enter just if command buffer is empty
+            if (match.getCommand().size() == 0) {
+                String ack;
+                switch (command.toUpperCase()) {
+                    // move up
+                    case "U":
+                        ack = match.Move(new Coordinates(1, 0));
+                        if (ack != null) {
+                            match.getCommand().add(new Coordinates(1, 0));
+                        }
+                        break;
+                    // move down
+                    case "D":
+                        ack = match.Move(new Coordinates(-1, 0));
+                        if (ack != null) {
+                            match.getCommand().add(new Coordinates(-1, 0));
+                        }
+                        break;
+                    // move left
+                    case "L":
+                        ack = match.Move(new Coordinates(0, -1));
+                        if (ack != null) {
+                            match.getCommand().add(new Coordinates(0, -1));
+                        }
+                        break;
+                    // move right
+                    case "R":
+                        ack = match.Move(new Coordinates(0, 1));
+                        if (ack != null) {
+                            match.getCommand().add(new Coordinates(0, 1));
+                        }
+                        break;
+                    // exit from java application
+                    case "Q":
+                        tokenThread.SendRemovePlayerMessage();
+                        break;
+                    // thrown bomb
+                    case "B":
+                        Integer bomb = match.getFifoBombList().pop();
+                        // TODO
+                        break;
+                    // retry
+                    default:
+                        System.out.println("Unknown command, retry!");
+                        break;
+                }
+            }
+            else {
+                System.out.println("Wait, you can do just one step before the other");
             }
         }
     }

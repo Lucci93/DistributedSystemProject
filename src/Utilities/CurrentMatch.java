@@ -1,8 +1,7 @@
-package Client;
-
-import javafx.util.Pair;
+package Utilities;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Random;
 
 public class CurrentMatch {
@@ -20,7 +19,7 @@ public class CurrentMatch {
     // current score point
     private Integer score;
     // current currentCoordinates
-    private Pair<Integer, Integer> coord;
+    private Coordinates coord;
     // list of player in game
     private ArrayList<String> inGamePlayers;
     // score to win the match
@@ -29,6 +28,12 @@ public class CurrentMatch {
     private ArrayList<String> inGamePlayersIP;
     // list of player in game port
     private ArrayList<Integer> inGamePlayersPort;
+    // check if player have won
+    private boolean win;
+    // FIFO list for bomb
+    private LinkedList<Integer> fifoBombList;
+    // array of one element of terminal commands
+    private ArrayList<Coordinates> command;
 
     public CurrentMatch(String name, String token, String playerName, Integer sizeSide, ArrayList<String> inGamePlayers, Integer maxScore, ArrayList<String> inGamePlayersIP, ArrayList<Integer> inGamePlayersPort) {
         this.name = name;
@@ -36,11 +41,14 @@ public class CurrentMatch {
         this.playerName = playerName;
         this.sizeSide = sizeSide;
         this.score = 0;
-        this.coord = new Pair<>(0,0);
+        this.coord = new Coordinates();
         this.inGamePlayers = inGamePlayers;
         this.maxScore = maxScore;
         this.inGamePlayersIP = inGamePlayersIP;
         this.inGamePlayersPort = inGamePlayersPort;
+        this.win = false;
+        this.fifoBombList = new LinkedList<>();
+        this.command = new ArrayList<>();
     }
 
     private CurrentMatch() {}
@@ -137,31 +145,52 @@ public class CurrentMatch {
         return score;
     }
 
+    // add score to the total score
     public synchronized void setScore(Integer score) {
-        this.score = score;
+        this.score += score;
     }
 
-    public synchronized Pair<Integer, Integer> getCoord() {
+    public synchronized Coordinates getCoord() {
         return coord;
+    }
+
+    public LinkedList<Integer> getFifoBombList() {
+        return fifoBombList;
+    }
+
+    public ArrayList<Coordinates> getCommand() {
+        return command;
     }
 
     // set start coordinates
     public synchronized void setCoord() {
         Integer x = new Random().nextInt(sizeSide + 1);
         Integer y = new Random().nextInt(sizeSide + 1);
-        coord = new Pair<>(x, y);
+        coord = new Coordinates(x, y);
     }
 
     // move player in new coord
-    public synchronized void Move(Pair<Integer, Integer> step) {
+    public synchronized String Move(Coordinates step) {
         // check if player won't go over the grid
-        if (step.getKey() + coord.getKey() < 0 || step.getKey() + coord.getKey() > sizeSide || step.getValue() + coord.getKey() < 0 || step.getValue() + coord.getKey() > sizeSide) {
-            System.out.println("You can't go out of bounds, retry");
+        if (step.getKey() + coord.getKey() < 0 || step.getKey() + coord.getKey() > sizeSide) {
+            System.out.println("You can't go out of x bounds, retry");
+            return null;
+        }
+        else if (step.getValue() + coord.getValue() < 0 || step.getValue() + coord.getValue() > sizeSide) {
+            System.out.println("You can't go out of y bounds, retry");
+            return null;
         }
         else {
-            coord = new Pair<>(coord.getKey() + step.getKey(), coord.getValue() + step.getValue());
-            // TODO
+            coord = new Coordinates(coord.getKey() + step.getKey(), coord.getValue() + step.getValue());
+            return "ok";
         }
     }
 
+    // check if player have won
+    public synchronized boolean HaveWon() {
+        if (maxScore <= score) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -37,7 +37,7 @@ public class TUIManager {
     private TUIManager() {}
 
     // display the start menu interface if connection with server return a success
-    public void GameMenu() {
+    public synchronized void GameMenu() {
         // try to connect with server
         String response = tuiMethod.StartConnection();
 
@@ -58,7 +58,7 @@ public class TUIManager {
     }
 
     // print list of current matches if there are on terminal
-    public void ListOfCurrentMatches() {
+    public synchronized void ListOfCurrentMatches() {
         String response = tuiMethod.GetListOfCurrentMatches();
         if (response == "error") {
             // exit from java application
@@ -83,7 +83,7 @@ public class TUIManager {
     }
 
     // print the detail of a particular match
-    public void DetailsOfMatch(String matchName) {
+    public synchronized void DetailsOfMatch(String matchName) {
         String response = tuiMethod.GetDetailsOfMatch(matchName);
         if (response == "error") {
             // exit from java application
@@ -109,7 +109,7 @@ public class TUIManager {
     }
 
     // create a game
-    public Game CreateGame(String playerName, String matchName, String sideSize, String maxScore, String IPAddress, Integer portAddress) {
+    public synchronized Game CreateGame(String playerName, String matchName, String sideSize, String maxScore, String IPAddress, Integer portAddress) {
         String response = tuiMethod.CreateANewGame(playerName, matchName, sideSize, maxScore, IPAddress, portAddress.toString());
         if (response == "error") {
             System.out.println("Connection with server failed while it was creating the match...");
@@ -128,7 +128,7 @@ public class TUIManager {
     }
 
     // add player in a created game
-    public Game AddPlayer(String playerName, String matchName, String IPAddress, Integer portAddress) {
+    public synchronized Game AddPlayer(String playerName, String matchName, String IPAddress, Integer portAddress) {
         String response = tuiMethod.AddPlayerInGame(playerName, matchName, IPAddress, portAddress.toString());
         if (response == "error") {
             System.out.println("Connection with server failed while it was adding player in match...");
@@ -147,7 +147,7 @@ public class TUIManager {
     }
 
     // remove a player from a created game
-    public void RemovePlayer(String playerName, String matchName, String IPAddress, Integer portAddress) {
+    public synchronized void RemovePlayer(String playerName, String matchName, String IPAddress, Integer portAddress) {
         String response = tuiMethod.RemovePlayerFromMatch(playerName, matchName, IPAddress, portAddress.toString());
         if (response == "error" || response == "empty") {
             System.out.println("Connection with server failed while it was removing player from match...");
