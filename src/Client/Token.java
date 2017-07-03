@@ -49,10 +49,16 @@ public class Token extends Thread {
                 SendRemovePlayerMessage();
             }
             // if there is a step, do it
-            if (match.getCommand().size() == 1) {
+            if (match.getCommand()[0] != null && !match.getCommand()[0].equals("B")) {
                 MovePlayer();
                 // empty buffer input
-                match.getCommand().remove(0);
+                match.setCommand();
+            }
+            // if there is a bomb to thrown
+            if (match.getCommand()[0] != null && match.getCommand()[0].equals("B")) {
+                // TODO
+                // remove bomb from fifo list
+                match.getFifoBombList().pop();
             }
             // if just one player remain in game, stop the token ring system
             if (match.getInGamePlayers().size() == 1) {

@@ -33,7 +33,7 @@ public class CurrentMatch {
     // FIFO list for bomb
     private LinkedList<Integer> fifoBombList;
     // array of one element of terminal commands
-    private ArrayList<Coordinates> command;
+    private String[] command;
 
     public CurrentMatch(String name, String token, String playerName, Integer sizeSide, ArrayList<String> inGamePlayers, Integer maxScore, ArrayList<String> inGamePlayersIP, ArrayList<Integer> inGamePlayersPort) {
         this.name = name;
@@ -48,7 +48,8 @@ public class CurrentMatch {
         this.inGamePlayersPort = inGamePlayersPort;
         this.win = false;
         this.fifoBombList = new LinkedList<>();
-        this.command = new ArrayList<>();
+        // just one element
+        this.command = new String[1];
     }
 
     private CurrentMatch() {}
@@ -145,6 +146,10 @@ public class CurrentMatch {
         return score;
     }
 
+    public synchronized void setCommand() {
+        this.command = new String[1];
+    }
+
     // add score to the total score
     public synchronized void setScore(Integer score) {
         this.score += score;
@@ -158,7 +163,7 @@ public class CurrentMatch {
         return fifoBombList;
     }
 
-    public ArrayList<Coordinates> getCommand() {
+    public String[] getCommand() {
         return command;
     }
 
@@ -201,5 +206,27 @@ public class CurrentMatch {
             getFifoBombList().removeLast();
         }
         getFifoBombList().push(value.intValue());
+    }
+
+    // check if player is in the area of the bomb
+    public synchronized boolean CheckArea(Integer bombArea) {
+        Integer area;
+        // green
+        if (coord.getKey() < sizeSide/2 && coord.getValue() > sizeSide) {
+            area = 0;
+        }
+        // red
+        else if (coord.getKey() > sizeSide/2 && coord.getValue() > sizeSide/2) {
+            area = 1;
+        }
+        // blue
+        else if (coord.getKey() < sizeSide/2 && coord.getValue() < sizeSide/2) {
+            area = 2;
+        }
+        // yellow
+        else {
+            area = 3;
+        }
+        return area == bombArea;
     }
 }

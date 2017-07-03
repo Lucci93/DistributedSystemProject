@@ -45,35 +45,35 @@ public class InputManager extends Thread {
                 System.out.println("- Press Q to exit from the game.");
                 String command = scanner.nextLine();
                 // enter just if command buffer is empty
-                if (match.getCommand().size() == 0) {
+                if (match.getCommand()[0] == null) {
                     String ack;
                     switch (command.toUpperCase()) {
                         // move up
                         case "U":
                             ack = match.Move(new Coordinates(1, 0));
                             if (ack != null) {
-                                match.getCommand().add(new Coordinates(1, 0));
+                                match.getCommand()[0] = "U";
                             }
                             break;
                         // move down
                         case "D":
                             ack = match.Move(new Coordinates(-1, 0));
                             if (ack != null) {
-                                match.getCommand().add(new Coordinates(-1, 0));
+                                match.getCommand()[0] = "D";
                             }
                             break;
                         // move left
                         case "L":
                             ack = match.Move(new Coordinates(0, -1));
                             if (ack != null) {
-                                match.getCommand().add(new Coordinates(0, -1));
+                                match.getCommand()[0] = "L";
                             }
                             break;
                         // move right
                         case "R":
                             ack = match.Move(new Coordinates(0, 1));
                             if (ack != null) {
-                                match.getCommand().add(new Coordinates(0, 1));
+                                match.getCommand()[0] = "R";
                             }
                             break;
                         // exit from java application
@@ -83,8 +83,7 @@ public class InputManager extends Thread {
                             break;
                         // thrown bomb
                         case "B":
-                            Integer bomb = match.getFifoBombList().pop();
-                            // TODO
+                            match.getCommand()[0] = "B";
                             break;
                         // retry
                         default:
