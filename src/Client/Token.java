@@ -71,7 +71,7 @@ public class Token extends Thread {
     public synchronized void StopToken() {
         try {
             wait();
-            sleep(2000); // TODO
+            sleep(1000); // TODO
         }
         catch (Exception e) {
             System.out.println("Error while token thread was locking...");

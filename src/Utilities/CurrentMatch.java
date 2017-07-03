@@ -193,4 +193,13 @@ public class CurrentMatch {
         }
         return false;
     }
+
+    // set fifo list
+    public synchronized void setFifoBombList(Double value) {
+        // if list have a lot of bomb remove the last
+        if (getFifoBombList().size() == 10) {
+            getFifoBombList().removeLast();
+        }
+        getFifoBombList().push(value.intValue());
+    }
 }
