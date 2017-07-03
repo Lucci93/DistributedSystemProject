@@ -107,6 +107,7 @@ public class Communication {
             Message m = new Message(MessageIDs.TOKEN, json.toJson(token));
             out.writeBytes(json.toJson(m) + "\n");
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Error while socket try to send token...");
             // remove player from server
             tokenThread.SendRemovePlayerMessage();

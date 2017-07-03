@@ -47,10 +47,6 @@ public class Token extends Thread {
             if (dying) {
                 // remove player from all the lists of players
                 SendRemovePlayerMessage();
-                // send token and exit
-                communication.SendToken();
-                System.out.println("\nYOU LOOSE!!");
-                System.exit(0);
             }
             // if there is a step, do it
             if (match.getCommand().size() == 1) {
@@ -131,7 +127,11 @@ public class Token extends Thread {
             System.out.println("Error while socket try to send a remove message to players...");
         }
         else {
+            System.out.println("\nYOU LOOSE!!");
             System.out.println("Exit from game...");
+            // send token and exit
+            communication.SendToken();
+            System.exit(0);
         }
     }
 

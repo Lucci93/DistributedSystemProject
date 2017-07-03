@@ -153,7 +153,7 @@ public class TUI {
 
         // START GAME
         Player.GetInstance(playerName, IPAddress, portAddress);
-        CurrentMatch match = CurrentMatch.GetInstance(gameDetails.getName(), gameDetails.getToken(), playerName, gameDetails.getSizeSide(), gameDetails.getInGamePlayers(), gameDetails.getMaxScore(), gameDetails.getInGamePlayersIP(), gameDetails.getInGamePlayersPort());
+        CurrentMatch.GetInstance(gameDetails.getName(), gameDetails.getToken(), playerName, gameDetails.getSizeSide(), gameDetails.getInGamePlayers(), gameDetails.getMaxScore(), gameDetails.getInGamePlayersIP(), gameDetails.getInGamePlayersPort());
         Token tokenThread = Token.GetInstance();
         BombManager bombManagerThread = BombManager.GetInstance();
         ServerPeer serverPeer = ServerPeer.GetInstance();
@@ -163,73 +163,8 @@ public class TUI {
         bombManagerThread.start();
         // start peer server
         serverPeer.start();
-        // start timeout game
-        if (match.getInGamePlayers().size() < 2) {
-            Timeout timeout = new Timeout();
-            timeout.start();
-        }
-        // check players in game to start the timeout
-        while(match.getInGamePlayers().size() < 2);
         // start input
-        while (true) {
-            ClearTUI();
-            System.out.println("You are in coordinates (" + match.getCoord().getKey() + "," + match.getCoord().getValue() + ");");
-            System.out.println("You have " + match.getFifoBombList().size() + " bomb left ready to throw;");
-            System.out.println("- Move with 'U', 'D', 'L', 'R' to move 'UP', 'DOWN', 'LEFT', 'RIGHT';");
-            System.out.println("- Thrown a bomb with B;");
-            System.out.println("- Press Q to exit from the game.");
-            String command = scanner.nextLine();
-            // enter just if command buffer is empty
-            if (match.getCommand().size() == 0) {
-                String ack;
-                switch (command.toUpperCase()) {
-                    // move up
-                    case "U":
-                        ack = match.Move(new Coordinates(1, 0));
-                        if (ack != null) {
-                            match.getCommand().add(new Coordinates(1, 0));
-                        }
-                        break;
-                    // move down
-                    case "D":
-                        ack = match.Move(new Coordinates(-1, 0));
-                        if (ack != null) {
-                            match.getCommand().add(new Coordinates(-1, 0));
-                        }
-                        break;
-                    // move left
-                    case "L":
-                        ack = match.Move(new Coordinates(0, -1));
-                        if (ack != null) {
-                            match.getCommand().add(new Coordinates(0, -1));
-                        }
-                        break;
-                    // move right
-                    case "R":
-                        ack = match.Move(new Coordinates(0, 1));
-                        if (ack != null) {
-                            match.getCommand().add(new Coordinates(0, 1));
-                        }
-                        break;
-                    // exit from java application
-                    case "Q":
-                        tokenThread.SendRemovePlayerMessage();
-                        break;
-                    // thrown bomb
-                    case "B":
-                        Integer bomb = match.getFifoBombList().pop();
-                        // TODO
-                        break;
-                    // retry
-                    default:
-                        System.out.println("Unknown command, retry!");
-                        break;
-                }
-            }
-            else {
-                System.out.println("Wait, you can do just one step before the other");
-            }
-        }
+        while (true);
     }
 
     // clear the TUI

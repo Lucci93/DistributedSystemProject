@@ -72,6 +72,7 @@ public class Peer extends Thread {
             }
         }
         catch (Exception exec) {
+            exec.printStackTrace();
             System.out.println("Error while peer thread was running...");
             // remove player from server
             tokenThread.SendRemovePlayerMessage();

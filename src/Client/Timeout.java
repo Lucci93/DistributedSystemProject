@@ -13,7 +13,7 @@ public class Timeout extends Thread {
         try {
             System.out.println("Waiting players...");
             CurrentMatch match = CurrentMatch.GetInstance();
-            sleep(15000);
+            sleep(20000);
             // player is already alone in game
             if (match.getInGamePlayers().size() < 2) {
                 // remove from the list of players in game and server

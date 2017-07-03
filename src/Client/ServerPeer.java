@@ -1,7 +1,11 @@
 package Client;
 
+
 import Utilities.*;
+import Game.TUI;
 import com.google.gson.Gson;
+
+import javax.print.DocFlavor;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -13,6 +17,7 @@ public class ServerPeer extends Thread {
     private Token tokenThread;
     private Communication communication;
     private Gson json;
+    private InputManager inputThread;
 
     private ServerPeer() {
         this.player = Player.GetInstance();
@@ -21,6 +26,7 @@ public class ServerPeer extends Thread {
         this.communication = new Communication();
         this.match.setCoord();
         this.json = new Gson();
+        this.inputThread = InputManager.GetInstance();
     }
 
     //singleton initialization
@@ -47,6 +53,7 @@ public class ServerPeer extends Thread {
                 // notify that player is in game
                 SendAddingPlayerMessage();
             }
+            inputThread.start();
             while (true) {
                 // if some message will arrive, a thread will be launched to manage the message
                 Socket socket = serverSocket.accept();
