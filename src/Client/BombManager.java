@@ -74,7 +74,9 @@ public class BombManager extends Thread {
         for (int i = 0; i < measurements.size(); i++) {
             ema = oldEma + alpha*(measurements.get(i).getValue() - oldEma);
             if (ema - oldEma > threshold) {
+                // calculate area
                 match.setFifoBombList(ema % 4);
+                System.out.println("You have " + match.getFifoBombList().size() + " bomb left ready to throw;");
             }
             oldEma = ema;
         }

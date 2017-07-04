@@ -24,13 +24,14 @@ public class Communication {
     public synchronized String MessageGate(Message message) {
         Token tokenThread = Token.GetInstance();
         ArrayList<Socket> socketList = new ArrayList<>();
+        int indexArray = 0;
         // send message with position to players
         for(int i = 0; i < match.getInGamePlayers().size(); i++) {
             // if it's not me
             if (!match.getPlayerPort().equals(match.getInGamePlayersPort().get(i))) {
                 try {
                     socketList.add(new Socket(match.getInGamePlayersIP().get(i), match.getInGamePlayersPort().get(i)));
-                    DataOutputStream out = new DataOutputStream(socketList.get(i).getOutputStream());
+                    DataOutputStream out = new DataOutputStream(socketList.get(indexArray).getOutputStream());
                     out.writeBytes(json.toJson(message) + "\n");
                 }
                 catch (Exception exec) {
@@ -40,10 +41,9 @@ public class Communication {
                 }
                 try {
                     // if it's not me
-                    BufferedReader serverRead = new BufferedReader(new InputStreamReader(socketList.get(i).getInputStream()));
+                    BufferedReader serverRead = new BufferedReader(new InputStreamReader(socketList.get(indexArray).getInputStream()));
                     String ack = json.fromJson(serverRead.readLine(), String.class);
-                    socketList.get(0).close();
-                    socketList.remove(0);
+                    socketList.get(indexArray).close();
                     if (!ack.equals("ok")) {
                         return null;
                     }
@@ -53,6 +53,7 @@ public class Communication {
                     // remove player from server
                     tokenThread.SendRemovePlayerMessage();
                 }
+                indexArray++;
             }
         }
         return "ok";
@@ -63,33 +64,35 @@ public class Communication {
         Token tokenThread = Token.GetInstance();
         ArrayList<Socket> socketList = new ArrayList<>();
         ArrayList<Integer> pointList = new ArrayList<>();
+        int indexArray = 0;
         // send message with position to players
         for(int i = 0; i < match.getInGamePlayers().size(); i++) {
             // if it's not me
             if (!match.getPlayerPort().equals(match.getInGamePlayersPort().get(i))) {
                 try {
                     socketList.add(new Socket(match.getInGamePlayersIP().get(i), match.getInGamePlayersPort().get(i)));
-                    DataOutputStream out = new DataOutputStream(socketList.get(i).getOutputStream());
+                    DataOutputStream out = new DataOutputStream(socketList.get(indexArray).getOutputStream());
                     out.writeBytes(json.toJson(message) + "\n");
                 }
                 catch (Exception exec) {
-                    System.out.println("Error of connection between players while socket try to send movement message...");
+                    exec.printStackTrace();
+                    System.out.println("Error of connection between players while socket try to send movement or bomb explosion message...");
                     // remove player from server
                     tokenThread.SendRemovePlayerMessage();
                 }
                 try {
                     // if it's not me
-                    BufferedReader serverRead = new BufferedReader(new InputStreamReader(socketList.get(i).getInputStream()));
+                    BufferedReader serverRead = new BufferedReader(new InputStreamReader(socketList.get(indexArray).getInputStream()));
                     Integer ack = json.fromJson(serverRead.readLine(), Integer.class);
-                    socketList.get(0).close();
-                    socketList.remove(0);
+                    socketList.get(indexArray).close();
                     pointList.add(ack);
                 }
                 catch (Exception exec) {
-                    System.out.println("Error of connection between players while socket try to receive movement acknowledge...");
+                    System.out.println("Error of connection between players while socket try to receive movement or bomb explosion acknowledge...");
                     // remove player from server
                     tokenThread.SendRemovePlayerMessage();
                 }
+                indexArray++;
             }
         }
         return pointList;

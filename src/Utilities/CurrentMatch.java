@@ -202,10 +202,10 @@ public class CurrentMatch {
     // set fifo list
     public synchronized void setFifoBombList(Double value) {
         // if list have a lot of bomb remove the last
-        if (getFifoBombList().size() == 10) {
-            getFifoBombList().removeLast();
+        if (fifoBombList.size() == 10) {
+            fifoBombList.removeLast();
         }
-        getFifoBombList().push(value.intValue());
+       fifoBombList.addFirst(value.intValue());
     }
 
     // check if player is in the area of the bomb
@@ -227,6 +227,28 @@ public class CurrentMatch {
         else {
             area = 3;
         }
-        return area == bombArea;
+        return area.equals(bombArea);
+    }
+
+    // check if player is in the area of the bomb
+    public synchronized String Area(Integer bombArea) {
+        if (!CheckArea(bombArea)) {
+            switch (bombArea) {
+                case 0:
+                    return "\nBomb threw in green area!";
+                case 1:
+                    return "\nBomb threw in red area!";
+                case 2:
+                    return "\nBomb threw in blue area!";
+                case 3:
+                    return "\nBomb threw in yellow area!";
+                default:
+                    return null;
+            }
+        }
+        // is in your area
+        else {
+            return "\nBomb threw in your area!";
+        }
     }
 }

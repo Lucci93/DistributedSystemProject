@@ -42,6 +42,10 @@ public class Peer extends Thread {
                     break;
                 // bomb thrown alert
                 case THROWN_BOMB:
+                    // send message of alert on terminal
+                    System.out.println(match.Area(json.fromJson(message.getMessage(), Integer.class)));
+                    // send the acknowledge
+                    SendMessage(json.toJson("ok"));
                     break;
                 // player added to list
                 case ADD_PLAYER:
@@ -53,6 +57,7 @@ public class Peer extends Thread {
                     break;
                 // explosion of the bomb
                 case BOMB_EXPLOSION:
+                    SendMessage(CheckBomb(json.fromJson(message.getMessage(), Integer.class)));
                     break;
                 // token received
                 case TOKEN:
@@ -64,6 +69,7 @@ public class Peer extends Thread {
                     manager.RemovePlayer(match.getPlayerName(), match.getName(), match.getPlayerIP(), match.getPlayerPort());
                     System.out.println("\nYOU LOOSE!!");
                     System.exit(0);
+                    break;
                 default:
                     System.out.println("Error while peer thread was checking message...");
                     // remove player from server
@@ -87,6 +93,22 @@ public class Peer extends Thread {
         }
         else {
             return json.toJson("ok");
+        }
+    }
+
+    // check if bomb is exploded in the same area of player, to check if is killed
+    private synchronized String CheckBomb(Integer message) {
+        System.out.println("Bomb Exploded!!");
+        // if bomb exploded in your area
+        if (match.CheckArea(message) && !tokenThread.isDying()) {
+            // if player was killed, wait token and exit from game
+            tokenThread.setDying(true);
+            // give a point to the enemy
+            return json.toJson(1);
+        }
+        else {
+            // player was not killed
+            return json.toJson(0);
         }
     }
 

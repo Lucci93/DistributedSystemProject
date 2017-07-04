@@ -56,9 +56,9 @@ public class Token extends Thread {
             }
             // if there is a bomb to thrown
             if (match.getCommand()[0] != null && match.getCommand()[0].equals("B")) {
-                // TODO
+                BombThrown();
                 // remove bomb from fifo list
-                match.getFifoBombList().pop();
+                match.getFifoBombList().removeFirst();
             }
             // if just one player remain in game, stop the token ring system
             if (match.getInGamePlayers().size() == 1) {
@@ -141,7 +141,7 @@ public class Token extends Thread {
         }
     }
 
-    // sent to all the player the it won
+    // send to all the player the it won
     public synchronized void Won() {
         // wait the sent of the message
         Message message = new Message(MessageIDs.WIN, json.toJson("won"));
@@ -150,5 +150,17 @@ public class Token extends Thread {
         manager.RemovePlayer(match.getPlayerName(), match.getName(), match.getPlayerIP(), match.getPlayerPort());
         System.out.println("\nYOU WIN!!");
         System.exit(0);
+    }
+
+    // send to all the player the message of bomb thrown
+    public synchronized void BombThrown() {
+        // send message
+        System.out.println(match.Area(match.getFifoBombList().getFirst()));
+        // wait the sent of the message
+        Message message = new Message(MessageIDs.THROWN_BOMB, json.toJson(match.getFifoBombList().getFirst()));
+        communication.MessageGate(message);
+        // start the bomb timer
+        Bomb bombThread = new Bomb(match.getFifoBombList().getFirst());
+        bombThread.start();
     }
 }
