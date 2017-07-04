@@ -2,28 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d2f6d5f-1a46-4d9c-8cbc-0d802287f486" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Server/WEB-INF/classes/Client/Bomb.class" afterPath="$PROJECT_DIR$/out/artifacts/Server/WEB-INF/classes/Client/Bomb.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Server/WEB-INF/classes/Client/BombManager$1.class" afterPath="$PROJECT_DIR$/out/artifacts/Server/WEB-INF/classes/Client/BombManager$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Server/WEB-INF/classes/Client/BombManager.class" afterPath="$PROJECT_DIR$/out/artifacts/Server/WEB-INF/classes/Client/BombManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Server/WEB-INF/classes/Client/InputManager.class" afterPath="$PROJECT_DIR$/out/artifacts/Server/WEB-INF/classes/Client/InputManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Server/WEB-INF/classes/Client/Peer.class" afterPath="$PROJECT_DIR$/out/artifacts/Server/WEB-INF/classes/Client/Peer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Server/WEB-INF/classes/Client/Token.class" afterPath="$PROJECT_DIR$/out/artifacts/Server/WEB-INF/classes/Client/Token.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Server/WEB-INF/classes/Utilities/Communication.class" afterPath="$PROJECT_DIR$/out/artifacts/Server/WEB-INF/classes/Utilities/Communication.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProgettoSistemiDistribuiti/Client/BombManager$1.class" afterPath="$PROJECT_DIR$/out/production/ProgettoSistemiDistribuiti/Client/BombManager$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProgettoSistemiDistribuiti/Client/BombManager.class" afterPath="$PROJECT_DIR$/out/production/ProgettoSistemiDistribuiti/Client/BombManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProgettoSistemiDistribuiti/Client/InputManager.class" afterPath="$PROJECT_DIR$/out/production/ProgettoSistemiDistribuiti/Client/InputManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProgettoSistemiDistribuiti/Client/Token.class" afterPath="$PROJECT_DIR$/out/production/ProgettoSistemiDistribuiti/Client/Token.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/glassfish4/glassfish/domains/domain1/config/domain.xml" afterPath="$PROJECT_DIR$/glassfish4/glassfish/domains/domain1/config/domain.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/glassfish4/glassfish/domains/domain1/config/domain.xml.bak" afterPath="$PROJECT_DIR$/glassfish4/glassfish/domains/domain1/config/domain.xml.bak" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/glassfish4/glassfish/domains/domain1/config/local-password" afterPath="$PROJECT_DIR$/glassfish4/glassfish/domains/domain1/config/local-password" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/glassfish4/glassfish/domains/domain1/config/pid.prev" afterPath="$PROJECT_DIR$/glassfish4/glassfish/domains/domain1/config/pid.prev" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/glassfish4/glassfish/domains/domain1/generated/policy/Server/Server/granted.policy" afterPath="$PROJECT_DIR$/glassfish4/glassfish/domains/domain1/generated/policy/Server/Server/granted.policy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/glassfish4/glassfish/domains/domain1/logs/server.log" afterPath="$PROJECT_DIR$/glassfish4/glassfish/domains/domain1/logs/server.log" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/BombManager.java" afterPath="$PROJECT_DIR$/src/Client/BombManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/InputManager.java" afterPath="$PROJECT_DIR$/src/Client/InputManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/Token.java" afterPath="$PROJECT_DIR$/src/Client/Token.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Utilities/CurrentMatch.java" afterPath="$PROJECT_DIR$/src/Utilities/CurrentMatch.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -47,7 +26,7 @@
       <file leaf-file-name="Token.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Client/Token.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-852">
+            <state relative-caret-position="810">
               <caret line="62" column="35" lean-forward="false" selection-start-line="62" selection-start-column="35" selection-end-line="62" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -59,12 +38,10 @@
       <file leaf-file-name="BombManager.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Client/BombManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="556">
-              <caret line="85" column="53" lean-forward="true" selection-start-line="85" selection-start-column="53" selection-end-line="85" selection-end-column="53" />
+            <state relative-caret-position="601">
+              <caret line="88" column="9" lean-forward="false" selection-start-line="88" selection-start-column="9" selection-end-line="88" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1100#1101#0" expanded="true" />
-                <element signature="e#1166#1167#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -73,7 +50,7 @@
       <file leaf-file-name="Bomb.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Client/Bomb.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="513">
+            <state relative-caret-position="705">
               <caret line="55" column="35" lean-forward="false" selection-start-line="55" selection-start-column="35" selection-end-line="55" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -87,11 +64,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="390">
               <caret line="29" column="5" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="29" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#134#135#0" expanded="false" />
-                <element signature="e#164#165#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -119,8 +92,8 @@
       <file leaf-file-name="CurrentMatch.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Utilities/CurrentMatch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="204" column="39" lean-forward="true" selection-start-line="204" selection-start-column="39" selection-end-line="204" selection-end-column="39" />
+            <state relative-caret-position="2550">
+              <caret line="204" column="39" lean-forward="false" selection-start-line="204" selection-start-column="39" selection-end-line="204" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -131,7 +104,7 @@
       <file leaf-file-name="Communication.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Utilities/Communication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="359">
+            <state relative-caret-position="1575">
               <caret line="113" column="49" lean-forward="false" selection-start-line="113" selection-start-column="49" selection-end-line="113" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -155,8 +128,8 @@
       <file leaf-file-name="InputManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Client/InputManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="89" column="81" lean-forward="true" selection-start-line="89" selection-start-column="81" selection-end-line="89" selection-end-column="81" />
+            <state relative-caret-position="1275">
+              <caret line="89" column="81" lean-forward="false" selection-start-line="89" selection-start-column="81" selection-end-line="89" selection-end-column="81" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -283,8 +256,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -389,7 +361,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -994,6 +967,7 @@
       <workItem from="1499148140691" duration="457000" />
       <workItem from="1499188497461" duration="93000" />
       <workItem from="1499188619595" duration="4694000" />
+      <workItem from="1499200379001" duration="40000" />
     </task>
     <task id="LOCAL-00001" summary="Add MapGenerator for GUI experience">
       <created>1494180718825</created>
@@ -1013,7 +987,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="203828000" />
+    <option name="totallyTimeSpent" value="203868000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1026,7 +1000,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1050,7 +1023,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27653062" sideWeight="0.49761903" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13758723" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2716728" sideWeight="0.4951857" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2747253" sideWeight="0.4951857" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25641027" sideWeight="0.5048143" order="7" side_tool="true" content_ui="tabs" />
@@ -1352,11 +1325,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
           <caret line="29" column="5" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="29" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#134#135#0" expanded="false" />
-            <element signature="e#164#165#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1376,17 +1345,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Client/BufferMeasurement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="12" lean-forward="false" selection-start-line="16" selection-start-column="12" selection-end-line="26" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Client/BufferMeasurement.java" />
     <entry file="file://$PROJECT_DIR$/src/Utilities/Communication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
+        <state relative-caret-position="1575">
           <caret line="113" column="49" lean-forward="false" selection-start-line="113" selection-start-column="49" selection-end-line="113" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1396,7 +1358,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Client/Token.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-852">
+        <state relative-caret-position="810">
           <caret line="62" column="35" lean-forward="false" selection-start-line="62" selection-start-column="35" selection-end-line="62" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1406,8 +1368,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Client/InputManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="89" column="81" lean-forward="true" selection-start-line="89" selection-start-column="81" selection-end-line="89" selection-end-column="81" />
+        <state relative-caret-position="1275">
+          <caret line="89" column="81" lean-forward="false" selection-start-line="89" selection-start-column="81" selection-end-line="89" selection-end-column="81" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1416,7 +1378,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Client/Bomb.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
+        <state relative-caret-position="705">
           <caret line="55" column="35" lean-forward="false" selection-start-line="55" selection-start-column="35" selection-end-line="55" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1426,8 +1388,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Utilities/CurrentMatch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="204" column="39" lean-forward="true" selection-start-line="204" selection-start-column="39" selection-end-line="204" selection-end-column="39" />
+        <state relative-caret-position="2550">
+          <caret line="204" column="39" lean-forward="false" selection-start-line="204" selection-start-column="39" selection-end-line="204" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1436,12 +1398,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Client/BombManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="556">
-          <caret line="85" column="53" lean-forward="true" selection-start-line="85" selection-start-column="53" selection-end-line="85" selection-end-column="53" />
+        <state relative-caret-position="601">
+          <caret line="88" column="9" lean-forward="false" selection-start-line="88" selection-start-column="9" selection-end-line="88" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1100#1101#0" expanded="true" />
-            <element signature="e#1166#1167#0" expanded="true" />
           </folding>
         </state>
       </provider>
