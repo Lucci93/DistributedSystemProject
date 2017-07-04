@@ -25,8 +25,8 @@ public class BombManager extends Thread {
     private Buffer<Measurement> buffer;
     private List<Measurement> listOfMeasurement;
     private Double oldEma;
-    private final double alpha = 0.5;
-    private final double threshold = 0.5;
+    private final double alpha = 0.8;
+    private final double threshold = 0.8;
 
     private BombManager() {
         this.match = CurrentMatch.GetInstance();
@@ -35,13 +35,13 @@ public class BombManager extends Thread {
         this.oldEma = 0.0;
         this.buffer = new Buffer<Measurement>() {
             @Override
-            public void addNewMeasurement(Measurement measurement) {
+            public synchronized void addNewMeasurement(Measurement measurement) {
                 listOfMeasurement.add(measurement);
             }
 
             @Override
-            public List<Measurement> readAllAndClean() {
-                List<Measurement> tmp = listOfMeasurement;
+            public synchronized List<Measurement> readAllAndClean() {
+                List<Measurement> tmp = new ArrayList<>(listOfMeasurement);
                 listOfMeasurement.clear();
                 return tmp;
             }
@@ -54,7 +54,9 @@ public class BombManager extends Thread {
         while (true) {
             SleepBombManager();
             ArrayList<Measurement> measurements = new ArrayList<>(buffer.readAllAndClean());
-            CalculateEMA(measurements);
+            if (!measurements.isEmpty()) {
+                CalculateEMA(measurements);
+            }
         }
     }
 
@@ -71,14 +73,32 @@ public class BombManager extends Thread {
 
     private synchronized void CalculateEMA(ArrayList<Measurement> measurements) {
         Double ema;
-        for (int i = 0; i < measurements.size(); i++) {
-            ema = oldEma + alpha*(measurements.get(i).getValue() - oldEma);
-            if (ema - oldEma > threshold) {
-                // calculate area
-                match.setFifoBombList(ema % 4);
+        if (oldEma != 0.0) {
+            ema = oldEma + alpha * (CalculateAverage(measurements) - oldEma);
+        }
+        // base case
+        else {
+            ema = CalculateAverage(measurements);
+        }
+        if (ema - oldEma > threshold) {
+            // calculate area
+            match.setFifoBombList(ema % 4);
+            if (match.getFifoBombList().size() > 5) {
                 System.out.println("You have " + match.getFifoBombList().size() + " bomb left ready to throw;");
             }
-            oldEma = ema;
         }
+        oldEma = ema;
+    }
+
+        // calculate the average of the measurement each second
+    private Double CalculateAverage(List <Measurement> measurements) {
+        Double sum = 0.0;
+        if(!measurements.isEmpty()) {
+            for (Measurement measure : measurements) {
+                sum += measure.getValue();
+            }
+            return sum / measurements.size();
+        }
+        return sum;
     }
 }

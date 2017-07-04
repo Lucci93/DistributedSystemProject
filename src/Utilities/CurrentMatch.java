@@ -202,7 +202,7 @@ public class CurrentMatch {
     // set fifo list
     public synchronized void setFifoBombList(Double value) {
         // if list have a lot of bomb remove the last
-        if (fifoBombList.size() == 10) {
+        if (fifoBombList.size() == 5) {
             fifoBombList.removeLast();
         }
        fifoBombList.addFirst(value.intValue());

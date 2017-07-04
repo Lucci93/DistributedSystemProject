@@ -59,6 +59,8 @@ public class Token extends Thread {
                 BombThrown();
                 // remove bomb from fifo list
                 match.getFifoBombList().removeFirst();
+                // empty buffer input
+                match.setCommand();
             }
             // if just one player remain in game, stop the token ring system
             if (match.getInGamePlayers().size() == 1) {
@@ -99,7 +101,7 @@ public class Token extends Thread {
     }
 
     // sent to all the player the step did, to check if player kill someone
-    public synchronized void MovePlayer() {
+    private synchronized void MovePlayer() {
         // wait the sent of the message
         Message message = new Message(MessageIDs.MOVE_PLAYER, json.toJson(match.getCoord()));
         ArrayList<Integer> points = communication.CheckKillMessage(message);
@@ -153,7 +155,7 @@ public class Token extends Thread {
     }
 
     // send to all the player the message of bomb thrown
-    public synchronized void BombThrown() {
+    private synchronized void BombThrown() {
         // send message
         System.out.println(match.Area(match.getFifoBombList().getFirst()));
         // wait the sent of the message

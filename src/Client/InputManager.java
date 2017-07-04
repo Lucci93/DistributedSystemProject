@@ -83,7 +83,12 @@ public class InputManager extends Thread {
                             break;
                         // thrown bomb
                         case "B":
-                            match.getCommand()[0] = "B";
+                            if (!match.getFifoBombList().isEmpty()) {
+                                match.getCommand()[0] = "B";
+                            }
+                            else {
+                                System.out.println("You not have bomb to throw");
+                            }
                             break;
                         // retry
                         default:
