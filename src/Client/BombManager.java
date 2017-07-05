@@ -82,8 +82,8 @@ public class BombManager extends Thread {
         }
         if (ema - oldEma > threshold) {
             // calculate area
-            match.setFifoBombList(ema % 4);
-            if (match.getFifoBombList().size() <= 5) {
+            boolean isFull = match.setFifoBombList(ema % 4);
+            if (!isFull) {
                 System.out.println("You have " + match.getFifoBombList().size() + " bomb left ready to throw;");
             }
         }

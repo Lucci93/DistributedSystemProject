@@ -16,5 +16,7 @@ public enum MessageIDs {
     // send token
     TOKEN,
     // win
-    WIN
+    WIN,
+    // start next player token
+    START_TOKEN
 }

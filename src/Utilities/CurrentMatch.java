@@ -200,12 +200,15 @@ public class CurrentMatch {
     }
 
     // set fifo list
-    public synchronized void setFifoBombList(Double value) {
+    public synchronized boolean setFifoBombList(Double value) {
+        boolean full = false;
         // if list have a lot of bomb remove the last
         if (fifoBombList.size() == 5) {
             fifoBombList.removeLast();
+            full = true;
         }
-       fifoBombList.addFirst(value.intValue());
+        fifoBombList.addFirst(value.intValue());
+        return full;
     }
 
     // check if player is in the area of the bomb

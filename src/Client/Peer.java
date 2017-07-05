@@ -63,6 +63,10 @@ public class Peer extends Thread {
                 case TOKEN:
                     SendMessage(CheckToken(json.fromJson(message.getMessage(), TokenObject.class)));
                     break;
+                // start token thread
+                case START_TOKEN:
+                    tokenThread.StartToken();
+                    break;
                 // player's win alert
                 case WIN:
                     SendMessage("ok");
@@ -137,7 +141,6 @@ public class Peer extends Thread {
         // if there are the same token
         if (token.getId().equals(match.getToken())) {
             // wake up token
-            tokenThread.StartToken();
             return json.toJson("ok");
         }
         else {
