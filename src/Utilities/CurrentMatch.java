@@ -215,7 +215,7 @@ public class CurrentMatch {
     public synchronized boolean CheckArea(Integer bombArea) {
         Integer area;
         // green
-        if (coord.getKey() < sizeSide/2 && coord.getValue() > sizeSide) {
+        if (coord.getKey() <= sizeSide/2 && coord.getValue() > sizeSide/2) {
             area = 0;
         }
         // red
@@ -223,7 +223,7 @@ public class CurrentMatch {
             area = 1;
         }
         // blue
-        else if (coord.getKey() < sizeSide/2 && coord.getValue() < sizeSide/2) {
+        else if (coord.getKey() <= sizeSide/2 && coord.getValue() <= sizeSide/2) {
             area = 2;
         }
         // yellow

@@ -51,6 +51,7 @@ public class TUI {
         try {
             // get random port
             ServerSocket socket = new ServerSocket(0);
+            socket.setReuseAddress(true);
             portAddress = socket.getLocalPort();
             // get IPAddress
             IPAddress = InetAddress.getLocalHost().getHostAddress();

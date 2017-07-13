@@ -25,8 +25,9 @@ public class BombManager extends Thread {
     private Buffer<Measurement> buffer;
     private List<Measurement> listOfMeasurement;
     private Double oldEma;
-    private final double alpha = 0.8;
-    private final double threshold = 0.8;
+
+    private final double alpha = 0.5;
+    private final double threshold = 50;
 
     private BombManager() {
         this.match = CurrentMatch.GetInstance();

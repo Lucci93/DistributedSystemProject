@@ -16,6 +16,7 @@ public class Peer extends Thread {
     private Gson json;
     private Token tokenThread;
     private TUIManager manager;
+    private boolean startToken;
 
     public Peer(Socket socket) {
         this.connectionSocket = socket;
@@ -23,6 +24,7 @@ public class Peer extends Thread {
         this.match = CurrentMatch.GetInstance();
         this.tokenThread = Token.GetInstance();
         this.manager = TUIManager.GetInstance();
+        this.startToken = false;
     }
 
     public void run() {
@@ -62,10 +64,11 @@ public class Peer extends Thread {
                 // token received
                 case TOKEN:
                     SendMessage(CheckToken(json.fromJson(message.getMessage(), TokenObject.class)));
-                    break;
-                // start token thread
-                case START_TOKEN:
-                    tokenThread.StartToken();
+                    // start token thread
+                    if (startToken) {
+                        tokenThread.StartToken();
+                        startToken = false;
+                    }
                     break;
                 // player's win alert
                 case WIN:
@@ -141,6 +144,7 @@ public class Peer extends Thread {
         // if there are the same token
         if (token.getId().equals(match.getToken())) {
             // wake up token
+            startToken = true;
             return json.toJson("ok");
         }
         else {
