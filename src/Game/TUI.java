@@ -24,7 +24,7 @@ public class TUI {
         String playerName = "";
         String serverIPAddress = "";
         String serverPort = "";
-        /* TODO
+
         // set server address
         System.out.println("Enter the IP of the server:");
         while (serverIPAddress.length() < 1) {
@@ -35,15 +35,11 @@ public class TUI {
         while (serverPort.length() < 1) {
             serverPort = scanner.nextLine();
         }
-        */
         // set player name
         System.out.println("Enter your in-game name:");
         while (playerName.length() < 1) {
             playerName = scanner.nextLine();
         }
-
-        serverIPAddress = "localhost";
-        serverPort = "8080";
         // create the TUI manager
         TUIManager manager = TUIManager.GetInstance(serverIPAddress, serverPort);
 

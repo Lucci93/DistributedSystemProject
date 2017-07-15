@@ -79,7 +79,7 @@ public class Token extends Thread {
     public synchronized void StopToken() {
         try {
             wait();
-            sleep(1);
+            sleep(100);
         }
         catch (Exception e) {
             System.out.println("Error while token thread was locking...");
