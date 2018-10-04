@@ -1,6 +1,6 @@
 # Distributed Game System
 
-A distributed system game made with **GlassFish** EE and a REST server with a token ring communication.
+A distributed game system made with **GlassFish** EE and a REST server with a token ring communication.
 
 For more details about project check the [progettoSDP2017.pdf](progettoSDP2017.pdf) file.
 
@@ -17,7 +17,7 @@ You must have at least **Glassfish 4.1** installed to run the project.
 
 ### Installing
 
-Download or clone the repository and launch the *main.cu* file inside the main folder.
+Download or clone the repository and launch the *src/Game/TUI.java* file.
 
 ## Built With
 
