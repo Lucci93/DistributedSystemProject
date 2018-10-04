@@ -1,4 +1,4 @@
-# Maze Generator and Solver
+# Distributed Game System
 
 A distributed system game made with **GlassFish** EE and a REST server with a token ring communication.
 
